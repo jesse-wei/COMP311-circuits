@@ -2,9 +2,9 @@
 
 Some circuits from COMP311 (Computer Organization) at [UNC](https://unc.edu). Designs are from Professors Brent Munsell and Montek Singh.
 
-Use [Digital](https://github.com/hneemann/Digital), a really great circuit simulator program made by [hneemann](https://github.com/hneemann/), to open and run simulations on `.dig` files.
+Use [Digital](https://github.com/hneemann/Digital), a really great circuit creation & simulation program made by [hneemann](https://github.com/hneemann/), to open and run simulations on `.dig` files.
 
-Here is the download link for Digital. This is not my software. I'm not taking credit for it; I'm providing the link here for convenience.
+For convenience, here is the download link for Digital (from the Digital repo above). This is not my software.
 
 [![Download](distribution/Download.svg)](https://github.com/hneemann/Digital/releases/latest/download/Digital.zip)
 
@@ -12,9 +12,20 @@ To see how to run the program and other documentation, click the link to Digital
 
 # Definitions
 
-Here are some brief definitions of these circuits, listed in alphabetical order.
+Here are some definitions and explanations of these circuits.
 
-I describe specific cases, such as a DeMUX with 1 select bit and a decoder with 2 select bits. I believe it's easier to understand a specific case than the general case (e.g. let $S = n $ bits). You can easily generalize to $n$ bits yourself once you understand the specific case.
+I describe specific cases, such as a DeMUX with 1 select bit and a decoder with 2 select bits. I believe it's easier to understand a specific case than the general case. You can easily generalize to $N$ bits yourself once you understand the specific case.
+
+## Table of contents
+
+* [D flip flop](#d-flip-flop-rising-edge)
+* [D latch](#d-latch-positive)
+* [Decoder](#decoder-s--2)
+* [DeMUX](#demux-s--1)
+* [Encoder](#encoder-s--2)
+* [Full Adder](#full-adder)
+
+
 
 ## D flip flop (rising edge)
 
@@ -75,35 +86,7 @@ I describe specific cases, such as a DeMUX with 1 select bit and a decoder with 
 |1|0|x|0
 |1|1|x|1
 
-## DeMUX (S = 1)
 
-### Inputs
-
-* $Y$
-* $S$
-
-### Outputs
-
-* $A$
-* $B$
-
-### Behavior
-
-* Use S to select which output (A or B) becomes the input Y.
-
-* S acts like a switch determining which input is switched to the output.
-
-### Truth table
-
-<!-- |Inputs|Outputs|
-|---|---| -->
-
-|$S$|$Y$|$A$|$B$|
-|---|---|---|---|
-|0|0|0|0|
-|0|1|0|1|
-|1|0|0|0|
-|1|1|1|0|
 
 ## Decoder (S = 2)
 
@@ -139,6 +122,36 @@ I describe specific cases, such as a DeMUX with 1 select bit and a decoder with 
 |1|1|0|0|0|1
 
 * This truth table is different (only in naming) from the one given in Brent's slides.
+
+## DeMUX (S = 1)
+
+### Inputs
+
+* $Y$
+* $S$
+
+### Outputs
+
+* $A$
+* $B$
+
+### Behavior
+
+* Use S to select which output (A or B) becomes the input Y.
+
+* S acts like a switch determining which input is switched to the output.
+
+### Truth table
+
+<!-- |Inputs|Outputs|
+|---|---| -->
+
+|$S$|$Y$|$A$|$B$|
+|---|---|---|---|
+|0|0|0|0|
+|0|1|0|1|
+|1|0|0|0|
+|1|1|1|0|
 
 ## Encoder (S = 2)
 
@@ -225,7 +238,7 @@ $$C_{out} = AB + C_{in}(A \oplus B)$$
 
 #### $S$ equation explanations
 
-* The XOR ($\oplus$) operation can be understood as addition modulo 2.
+* The XOR ( $\oplus$ ) operation can be understood as addition modulo 2.
   * $0 + 0 = 0 \equiv 0 \pmod{2}$
   * $0 + 1 = 1 \equiv 1 \pmod{2}$
   * $1 + 0 = 1 \equiv 1 \pmod{2}$
