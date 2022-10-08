@@ -24,6 +24,7 @@ I describe specific cases, such as a DeMUX with 1 select bit and a decoder with 
 * [DeMUX](#demux-s--1)
 * [Encoder](#encoder-s--2)
 * [Full Adder](#full-adder)
+* [Inverter clock](#inverter-clock)
 
 
 
@@ -259,3 +260,25 @@ $$C_{out} = AB + C_{in}(A \oplus B)$$
 ### Truth table
 
 * Unnecessary 🙂
+
+## Inverter clock
+
+* This is the simplest implementation of a clock.
+* Simply wire up, in a loop, an *odd* number of NOT gates.
+
+### Input
+
+* None
+
+### Output
+
+* Connect a wire to any part of the circuit.
+
+### Behavior
+
+* This functions as a clock because a NOT gate (and all gates) have $t_{pd}$, propagation delay.
+* Each wire in the circuit will oscillate between 0 and 1.
+
+### Truth table
+
+101010101010101010101010101010101010...
