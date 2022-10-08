@@ -1,4 +1,4 @@
-# COMP311 (Computer Organization) circuits
+# COMP311 circuits
 
 Some circuits from COMP311 (Computer Organization) at [UNC](https://unc.edu). Designs are from Professors Brent Munsell and Montek Singh.
 
