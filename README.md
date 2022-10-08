@@ -38,10 +38,11 @@ I describe specific cases, such as a DeMUX with 1 select bit and a decoder with 
 | --- | --- | --- | --- |
 | Rising edge | 0 | x | 0 |
 | Rising edge | 1 | x | 1 |
-Falling edge, active high, or active low | x | 0 | 0 |
-Falling edge, active high, or active low | x | 1 | 1 |
+|Falling edge, active high, or active low | x | 0 | 0 |
+|Falling edge, active high, or active low | x | 1 | 1 |
 
 ### Misc
+
 * Use two latches, one positive and one negative, to contruct a D flip flop.
 * The order of the latches determines whether the D flip flop is enabled by a rising or falling edge.
 * This uses the "escapement" strategy.
@@ -64,8 +65,8 @@ Falling edge, active high, or active low | x | 1 | 1 |
 
 ### Truth table
 
-| Inputs |  | | Output |
-| --- | --- | --- | --- |
+<!-- | Inputs |  | | Output |
+| --- | --- | --- | --- | -->
 
 | $G$ | $D$ | $Q_{in}$ | $Q_{out}$ |
 | --- | --- | --- | --- |
@@ -94,8 +95,8 @@ Falling edge, active high, or active low | x | 1 | 1 |
 
 ### Truth table
 
-|Inputs|Outputs|
-|---|---|
+<!-- |Inputs|Outputs|
+|---|---| -->
 
 |$S$|$Y$|$A$|$B$|
 |---|---|---|---|
@@ -109,12 +110,12 @@ Falling edge, active high, or active low | x | 1 | 1 |
 ### Input
 
 * $S_1S_0$
-    * 2-bit input
+  * 2-bit input
 
 ### Output
 
 * $A_0A_1A_2A_3$
-    * 4-bit output
+  * 4-bit output
 
 ### Behavior
 
@@ -127,8 +128,8 @@ Falling edge, active high, or active low | x | 1 | 1 |
 
 ### Truth table
 
-|Input||Output||||
-|---|---|---|---|---|---|
+<!-- |Input||Output||||
+|---|---|---|---|---|---| -->
 
 |$S_1$|$S_0$|$A_0$|$A_1$|$A_2$|$A_3$|
 |---|---|---|---|---|---|
@@ -139,18 +140,17 @@ Falling edge, active high, or active low | x | 1 | 1 |
 
 * This truth table is different (only in naming) from the one given in Brent's slides.
 
-
 ## Encoder (S = 2)
 
 ### Input
 
 * $A_3A_2A_1A_0$
-    * 4-bit input
+  * 4-bit input
 
 ### Output
 
 * $S_0S_1$
-    * 2-bit output
+  * 2-bit output
 
 ### Behavior
 
@@ -160,8 +160,8 @@ Falling edge, active high, or active low | x | 1 | 1 |
 
 ### Truth table
 
-|Input||||||Output|
-|---|---|---|---|---|---|---|
+<!-- |Input||||||Output|
+|---|---|---|---|---|---|---| -->
 
 |$A_3$|$A_2$|$A_1$|$A_0$|$S_0$|$S_1$|
 |---|---|---|---|---|---|
@@ -181,19 +181,19 @@ This and the adder-subtractor, which uses full adders, are my favorite circuit d
 * $A$
 * $B$
 * $C_{in}$
-    * Carry in
+  * Carry in
 
 ### Outputs
 
 * $S$
-    * Sum
+  * Sum
 * $C_{out}$
-    * Carry out
+  * Carry out
 
 ### Behavior (abstract)
 
 * The following describes how we intuitively know what the outputs of the circuit should be based on how vertical addition of two numbers works, which we're all very comfortable with.
-    * Of course, the circuit doesn't have any notion of that. It follows the boolean equations given below.
+  * Of course, the circuit doesn't have any notion of that. It follows the boolean equations given below.
 * Consider adding two binary numbers `A=0b1011` and `B=0b1001` vertically.
 
 $$\begin{align*}
@@ -207,9 +207,9 @@ $$\begin{align*}
 <!-- TODO: add adder subtractor circuit and move this behavior description into it since it's not needed for just one full adder. Or just leave it here and for an adder-subtractor, say see the specification of a full adder -->
 
 * Addition in each column is done by a full adder.
-    * Addition in the rightmost column *may* be done by a half adder, though the adder-subtractor circuit requires a full adder for all columns.
-    * $C_{out}$ of any column is fed into the $C_{in}$ of the next column (one to the left).
-        * Except the leftmost column, which doesn't have a full adder to feed into. Its $C_{out}$ is the C flag of the ALU.
+  * Addition in the rightmost column *may* be done by a half adder, though the adder-subtractor circuit requires a full adder for all columns.
+  * $C_{out}$ of any column is fed into the $C_{in}$ of the next column (one to the left).
+    * Except the leftmost column, which doesn't have a full adder to feed into. Its $C_{out}$ is the C flag of the ALU.
 * If 1 or 3 of $\{A, B, C_{in}\}$ are 1, then S is 1.
 * Otherwise, if 0 or 2 of them are 1, then S is 0.
 * Use a mod operation to represent this: `S = (A + B + Cin) % 2`
@@ -224,23 +224,24 @@ $$S = A \oplus B \oplus C_{in}$$
 $$C_{out} = AB + C_{in}(A \oplus B)$$
 
 #### $S$ equation explanations
+
 * The XOR ($\oplus$) operation can be understood as addition modulo 2.
-    * $0 + 0 = 0 \equiv 0 \pmod{2}$
-    * $0 + 1 = 1 \equiv 1 \pmod{2}$
-    * $1 + 0 = 1 \equiv 1 \pmod{2}$
-    * $1 + 1 = 2 \equiv 0 \pmod{2}$
-    * Note that the rightmost numbers are the same as those in the truth table of XOR.
-    * Since XOR is addition modulo 2, the $S$ equation matches up with the perhaps more intuitive `S = (A + B + Cin) % 2`
+  * $0 + 0 = 0 \equiv 0 \pmod{2}$
+  * $0 + 1 = 1 \equiv 1 \pmod{2}$
+  * $1 + 0 = 1 \equiv 1 \pmod{2}$
+  * $1 + 1 = 2 \equiv 0 \pmod{2}$
+  * Note that the rightmost numbers are the same as those in the truth table of XOR.
+  * Since XOR is addition modulo 2, the $S$ equation matches up with the perhaps more intuitive `S = (A + B + Cin) % 2`
 * Also note that $x \oplus 0 = x$ and $x \oplus 1 = \overline{x}$.
 * This matches up with our understanding that adding 0 shouldn't change $S$, whereas adding 1 should toggle $S$.
 
 #### $C_{out}$ equation explanation
 
 * $C_{out}$ is 1 iff $\left(\text{A and B are both 1}\right) \text{OR} \left(C_{in} \text{ and either one of A or B is 1}\right)$
-    * This should be intuitive
+  * This should be intuitive
 * Why use $A \oplus B$ instead of $A + B$ in the equation?
 * Although the $C_{out}$ truth table wouldn't change (i.e. this change is functionally correct), notice that the $S$ equation also contains $A \oplus B$.
-    * We can use this one XOR gate in both the $S$ and $C_{out}$ parts of the circuit to save a gate! 🤯
+  * We can use this one XOR gate in both the $S$ and $C_{out}$ parts of the circuit to save a gate! 🤯
 
 ### Truth table
 
