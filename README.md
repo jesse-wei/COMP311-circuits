@@ -240,14 +240,17 @@ $$C_{out} = AB + C_{in}(A \oplus B)$$
 #### $S$ equation explanations
 
 * The XOR ( $\oplus$ ) operation can be understood as addition modulo 2.
-  * $0 + 0 = 0 \equiv 0 \pmod{2}$
-  * $0 + 1 = 1 \equiv 1 \pmod{2}$
-  * $1 + 0 = 1 \equiv 1 \pmod{2}$
-  * $1 + 1 = 2 \equiv 0 \pmod{2}$
-  * Note that the rightmost numbers are the same as those in the truth table of XOR.
-  * Since XOR is addition modulo 2, the $S$ equation matches up with the perhaps more intuitive `S = (A + B + Cin) % 2`
+
+|$A$|$B$|$A \oplus B$|$(A + B) \bmod{2}$|
+|---|---|:---:|:---:|
+|0|0|0|0|
+|0|1|1|1|
+|1|0|1|1|
+|1|1|0|0|
+
+* Since XOR is addition modulo 2, the $S$ equation matches up with the perhaps more intuitive `S = (A + B + Cin) % 2`
 * Also note that $x \oplus 0 = x$ and $x \oplus 1 = \overline{x}$.
-* This matches up with our understanding that adding 0 shouldn't change $S$, whereas adding 1 should toggle $S$.
+* This matches with our understanding that adding 0 shouldn't change $S$, whereas adding 1 should toggle $S$.
 
 #### $C_{out}$ equation explanation
 
