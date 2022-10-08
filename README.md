@@ -280,8 +280,7 @@ $$C_{out} = AB + C_{in}(A \oplus B)$$
 
 ![Inverter clock](/circuits/Inverter-clock.png)
 
-* This is the simplest implementation of a clock.
-* Simply wire up, in a loop, an *odd* number of NOT gates.
+* The simplest implementation of a clock involves simply wiring up, in a loop, an *odd* number of NOT gates.
 
 ### Input
 
@@ -293,8 +292,9 @@ $$C_{out} = AB + C_{in}(A \oplus B)$$
 
 ### Behavior
 
-* This functions as a clock because a NOT gate (and all gates) have $t_{pd}$, propagation delay.
-* Each wire in the circuit will oscillate between 0 and 1.
+* This functions as a clock because each NOT gate (and all gates) have $t_{pd}$, propagation delay.
+  * In the real world, $t_{pd}$ depends on how the inverter was manufactured and other factors, so this is not a good implementation.
+* Any wire from from the circuit oscillate between 0 and 1.
 
 ### Truth table
 
