@@ -12,7 +12,7 @@
         </entry>
         <entry>
           <string>Label</string>
-          <string>A_3</string>
+          <string>A_2</string>
         </entry>
       </elementAttributes>
       <pos x="240" y="240"/>
@@ -26,7 +26,7 @@
         </entry>
         <entry>
           <string>Label</string>
-          <string>A_2</string>
+          <string>A_1</string>
         </entry>
       </elementAttributes>
       <pos x="280" y="240"/>
@@ -40,7 +40,7 @@
         </entry>
         <entry>
           <string>Label</string>
-          <string>A_4</string>
+          <string>A_3</string>
         </entry>
       </elementAttributes>
       <pos x="200" y="240"/>
@@ -89,12 +89,12 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
-          <string>Label</string>
-          <string>A_1</string>
-        </entry>
-        <entry>
           <string>rotation</string>
           <rotation rotation="3"/>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>A_0</string>
         </entry>
       </elementAttributes>
       <pos x="320" y="240"/>
