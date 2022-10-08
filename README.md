@@ -34,7 +34,7 @@ I describe specific cases, such as a DeMUX with 1 select bit and a decoder with 
 
 ### Truth table
 
-| `CLK` | $$D$$ | $$Q_p$$ | $$Q$$
+| `CLK` | $D$ | $Q_p$ | $Q$|
 | --- | --- | --- | --- |
 | Rising edge | 0 | x | 0 |
 | Rising edge | 1 | x | 1 |
