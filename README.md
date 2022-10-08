@@ -6,7 +6,7 @@ Use [Digital](https://github.com/hneemann/Digital), a really great circuit creat
 
 For convenience, here is the download link for Digital (from the Digital repo above). This is not my software.
 
-[![Download](distribution/Download.svg)](https://github.com/hneemann/Digital/releases/latest/download/Digital.zip)
+[![Download](Download.svg)](https://github.com/hneemann/Digital/releases/latest/download/Digital.zip)
 
 To see how to run the program and other documentation, click the link to Digital's repo above.
 
@@ -29,6 +29,8 @@ I describe specific cases, such as a DeMUX with 1 select bit and a decoder with 
 
 
 ## D flip flop (rising edge)
+
+![D flip flop (rising edge)](/circuits/D-flip-flop-rising.png)
 
 ### Inputs
 
@@ -61,6 +63,8 @@ I describe specific cases, such as a DeMUX with 1 select bit and a decoder with 
 
 ## D latch (positive)
 
+![D latch (positive)](/circuits/D-latch-positive.png)
+
 ### Inputs
 
 * $D$
@@ -90,6 +94,8 @@ I describe specific cases, such as a DeMUX with 1 select bit and a decoder with 
 
 
 ## Decoder (S = 2)
+
+![Decoder (S = 2)](/circuits/Decoder(s%3D2).png)
 
 ### Input
 
@@ -126,6 +132,8 @@ I describe specific cases, such as a DeMUX with 1 select bit and a decoder with 
 
 ## DeMUX (S = 1)
 
+![DeMUX (S = 1)](/circuits/DEMUX(s%3D1).png)
+
 ### Inputs
 
 * $Y$
@@ -155,6 +163,8 @@ I describe specific cases, such as a DeMUX with 1 select bit and a decoder with 
 |1|1|1|0|
 
 ## Encoder (S = 2)
+
+![Encoder (S = 2)](/circuits/Encoder(s%3D2).png)
 
 ### Input
 
@@ -187,6 +197,8 @@ I describe specific cases, such as a DeMUX with 1 select bit and a decoder with 
 * All input combinations that aren't <span style="color:green">one-hot</span> (for the above 4-to-2 encoder, there are 12 omitted rows) result in $S_0S_1=\text{xx}$ because the encoder does not care about inputs that aren't one-hot. The output doesn't matter for inputs that aren't one-hot.
 
 ## Full adder
+
+![Full adder](/circuits/Full-Adder.png)
 
 This and the adder-subtractor, which uses full adders, are my favorite circuit designs 🙂
 
@@ -265,6 +277,8 @@ $$C_{out} = AB + C_{in}(A \oplus B)$$
 * Unnecessary 🙂
 
 ## Inverter clock
+
+![Inverter clock](/circuits/Inverter-clock.png)
 
 * This is the simplest implementation of a clock.
 * Simply wire up, in a loop, an *odd* number of NOT gates.
