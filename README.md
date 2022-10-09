@@ -8,7 +8,7 @@ For convenience, here is the download link for Digital (from the Digital repo ab
 
 [![Download](Download.svg)](https://github.com/hneemann/Digital/releases/latest/download/Digital.zip)
 
-To see how to run the program and other documentation, click the link to Digital's repo above.
+To see my advice on running the program, go to the [wiki](https://github.com/jesse-wei/COMP311-circuits/wiki/How-to-run-Digital). For documentation, go to the [Digital repo](https://github.com/hneemann/Digital).
 
 # Definitions
 
