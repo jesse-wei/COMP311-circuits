@@ -262,6 +262,7 @@ $$C_{out} = AB + C_{in}(A \oplus B)$$
 
 * Since XOR is addition modulo 2, the $S$ equation matches up with the perhaps more intuitive `S = (A + B + Cin) % 2`
 * Also note that $x \oplus 0 = x$ and $x \oplus 1 = \overline{x}$.
+    * That is, $\oplus 0$ does nothing, whereas $\oplus 1$ negates. XOR can be used to inverse bits.
 * This matches with our understanding that adding 0 shouldn't change $S$, whereas adding 1 should toggle $S$.
 
 #### $C_{out}$ equation explanation
