@@ -294,7 +294,7 @@ $$C_{out} = AB + C_{in}(A \oplus B)$$
 
 * This functions as a clock because each NOT gate (and all gates) have $t_{pd}$, propagation delay.
   * In the real world, $t_{pd}$ depends on how the inverter was manufactured and other factors, so this is not a good implementation.
-* Any wire from from the circuit oscillate between 0 and 1.
+* Any wire from the circuit oscillates between 0 and 1.
 
 ### Truth table
 
