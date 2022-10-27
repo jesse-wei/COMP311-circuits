@@ -18,11 +18,11 @@ Designs are from Professors Brent Munsell and Montek Singh.
 
 Use [Digital](https://github.com/hneemann/Digital), an awesome circuit creation & simulation program made by [hneemann](https://github.com/hneemann/), to open and run simulations on `.dig` files.
 
-Here is the download link for Digital (from the Digital repo above). This is not my software.
+Here's the download link for Digital (from the Digital repo above). This is not my software.
 
 [![Download](Download.svg)](https://github.com/hneemann/Digital/releases/latest/download/Digital.zip)
 
-For advice on running the program, see the [wiki](https://github.com/jesse-wei/COMP311-circuits/wiki/How-to-run-Digital). For documentation, go to the [Digital repo](https://github.com/hneemann/Digital) or click the `Help` button in Digital.
+For advice on running the program, see the [wiki](https://github.com/jesse-wei/COMP311-circuits/wiki/How-to-run-Digital). Here's [documentation](https://github.com/hneemann/Digital/releases/download/v0.29/Doc_English.pdf) from the [Digital repo](https://github.com/hneemann/Digital). You can also access it by clicking the `Help` button in Digital.
 
 # Definitions
 
@@ -142,7 +142,7 @@ num is equal to 0
   - But note that `FlagC = MSB produced carry` and `FlagZ = big NOR(Sum bits)` from the circuit hold for both addition and subtraction.
 
 | Condition | Symbol | Equation            |
-| --------- | ------ | ------------------- |
+| :---------: | :------: | :-------------------: |
 | `EQ`      | $==$   | $Z$                 |
 | `NE`      | $\neq$ | $\sim Z$            |
 | `LTU`     | $\lt$  | $\sim C$            |
@@ -435,11 +435,13 @@ $$C_{out} = AB + C_{in}(A \oplus B)$$
 
 ## Inverter clock
 
-![Inverter clock](/circuits/Inverter-clock.png)
+![Inverter clock](/img/Inverter-clock.png)
 
 - The simplest implementation of a clock involves simply wiring up, in a loop, an _odd_ number of NOT gates.
   - What would happen if there's an even number of NOT gates?
   - _Hint: That circuit design wouldn't cause an error during simulation._
+- Note: When running this circuit, you will get an error "Logic seems to oscillate"
+  - Which, of course, is what we intend to do with this clock design lol
 
 ### Input
 
