@@ -34,6 +34,8 @@ I also recomend understanding the behavior of a circuit before looking at the tr
 
 This and the [full adder](#full-adder) are my favorite circuit designs 🙂
 
+![Adder-subtractor schematic](/img/Adder-subtractor-schematic.png)
+
 ![Adder-subtractor (4-bit)](/circuits/Adder-subtractor-4-bit.png)
 
 ### Inputs
@@ -168,6 +170,8 @@ num is equal to 0
 
 ## D flip flop (rising edge)
 
+![D flip flop schematic](/img/D-flip-flop-schematic.png)
+
 ![D flip flop (rising edge)](/circuits/D-flip-flop-rising.png)
 
 ### Inputs
@@ -196,10 +200,14 @@ num is equal to 0
 ### Misc
 
 * Use two latches, one positive and one negative, to contruct a D flip flop.
+* ![D flip flop two latches](/img/D-flip-flop-construction-schematic.png)
 * The order of the latches determines whether the D flip flop is enabled by a rising or falling edge.
 * This uses the "escapement" strategy.
+* ![Escapement](/img/D-flip-flop-escapement-schematic.png)
 
 ## D latch (positive)
+
+![D latch schematic](/img/D-latch-schematic.png)
 
 ![D latch (positive)](/circuits/D-latch-positive.png)
 
@@ -342,6 +350,8 @@ num is equal to 0
 
 ## Full adder
 
+![Full adder schematic](/img/Full-adder-schematic.png)
+
 This and the [adder-subtractor](#adder-subtractor-4-bit), which uses full adders, are my favorite circuit designs 🙂
 
 ![Full adder](/circuits/Full-Adder.png)
@@ -374,8 +384,6 @@ $$\begin{align*}
 \hline
 1&0100 \quad S
 \end{align*}$$
-
-<!-- TODO: add adder subtractor circuit and move this behavior description into it since it's not needed for just one full adder. Or just leave it here and for an adder-subtractor, say see the specification of a full adder -->
 
 * Addition in each column is done by a full adder.
   * Addition in the rightmost column *may* be done by a half adder, though the adder-subtractor circuit requires a full adder for all columns.
