@@ -463,6 +463,8 @@ $$C_{out} = AB + C_{in}(A \oplus B)$$
 
 ## MUX
 
+Perhaps the most important and useful circuit in this document.
+
 ![MUX schematic](/img/MUX-schematic.png)
 
 ![MUX](</circuits/MUX(s%3D1).png>)
@@ -475,9 +477,10 @@ $$C_{out} = AB + C_{in}(A \oplus B)$$
 
 ### Output
 
-- Y
+- `Y`
 
 ### Behavior
+
 
 ```c
 if (S)
@@ -485,6 +488,8 @@ if (S)
 else
   Y = A;
 ```
+
+A MUX with more select bits would just be a long chain of `else if`'s (of course, the final `else if` can be an `else`) or a `case` statement.
 
 ### Truth table
 
@@ -499,4 +504,4 @@ else
 | 1   | 1   | 0   | 0   |
 | 1   | 1   | 1   | 1   |
 
-I highly recommend understanding it in terms of the behavior, especially the circuit schematic. You shouldn't need to use this truth table.
+I highly recommend understanding MUX in terms of its behavior, especially the circuit schematic. You shouldn't need to use this truth table.
