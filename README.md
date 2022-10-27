@@ -348,6 +348,7 @@ num is equal to 0
 | 1     | 0     | 0     | 0     | 1     | 1     |
 
 - All input combinations that aren't <span style="color:green">one-hot</span> (for the above 4-to-2 encoder, there are 12 omitted rows) result in $S_0S_1=\text{xx}$ because the encoder does not care about inputs that aren't one-hot. The output doesn't matter for inputs that aren't one-hot.
+- This truth table is different (only in naming) from the one given in Brent's slides.
 
 ## Full adder
 
