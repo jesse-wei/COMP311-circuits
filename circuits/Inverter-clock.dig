@@ -48,18 +48,6 @@
       <elementAttributes/>
       <pos x="600" y="240"/>
     </visualElement>
-    <visualElement>
-      <elementName>Text</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Description</string>
-          <string>Note: When running this circuit, you will get an error
-&quot;Logic seems to oscillate&quot;
-Which, of course, is what we intend with this clock design lol</string>
-        </entry>
-      </elementAttributes>
-      <pos x="20" y="100"/>
-    </visualElement>
   </visualElements>
   <wires>
     <wire>
