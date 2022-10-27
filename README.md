@@ -24,7 +24,7 @@ I describe specific cases, such as a DeMUX with 1 select bit and a decoder with 
 * [Decoder](#decoder-s--2)
 * [DeMUX](#demux-s--1)
 * [Encoder](#encoder-s--2)
-* [Full Adder](#full-adder)
+* [Full adder](#full-adder)
 * [Inverter clock](#inverter-clock)
 
 ## Adder-subtractor (4-bit)
@@ -60,9 +60,37 @@ else
   Sum[3:0] = A[3:0] + B[3:0]
 ```
 
-### Behavior (details)
+* We can use a single circuit to do both addition and subtraction 🤯
 
+### Behavior (detailed)
 
+* See [Full adder](#full-adder) if you're confused about how the full adder components work.
+* For this example, let's assume our registers are 4-bit.
+
+#### Addition
+
+* With `Sub=0`, inputting `A = 5 = 0b0101` and `B = 6 = 0b0110` results in `S = 11 = 0b1011`, as you would expect.
+  * ![5+6](/circuits/Adder-subtractor-5%2B6.png)
+  * Works by ripple-carry addition. See [Full adder](#full-adder) if confused.
+* What about `A = 8 = 0b1000` and `B = 8 = 0b1000`?
+  * ![8+8](/circuits/Adder-subtractor-8%2B8.png)
+  * Note that the most significant bit position produced a carry out.
+  * If you think of the carry out as `S[4]`, then the circuit does output the correct result `S = 16 = 0b10000`. But the Sum register is 4-bit, so it stores only `S[3:0] = 0b0000 = 0`.
+  * In other words, since 16 exceeds the limit of a 4 bit register, there is overflow. We store this information by setting `FlagC=1`.
+  * Also, since all Sum bits are 0 (even though `8+8 != 0`), `FlagZ=1`.
+
+#### Subtraction
+
+* How does an adding circuit do subtraction?
+* 2's complement 😈
+  * `A - B = A + (-B) = A + ~B + 1`
+* When `Sub=1`, 
+  * inverse the bits of B by applying a bitwise `XOR` with 1.
+    * See the `XOR` explanation in [Full adder](#full-adder) if this doesn't make sense.
+  * add the 1 by feeding 1 into $C_{in}$ of the least significant bit position.
+* With `Sub=1`, inputting `A = 5 = 0b0101` and `B = 6 = 0b0110` results in `S = -1 = 0b1111`.
+  * ![5-6](/circuits/Adder-subtractor-5-6.png)
+* What about `A = 8 = 0b1000`
 
 ### Truth table
 
@@ -302,9 +330,10 @@ $$C_{out} = AB + C_{in}(A \oplus B)$$
 |1|1|0|0|
 
 * Since XOR is addition modulo 2, the $S$ equation matches up with the perhaps more intuitive `S = (A + B + Cin) % 2`
-* Also note that $x \oplus 0 = x$ and $x \oplus 1 = \overline{x}$.
-    * That is, $\oplus 0$ does nothing, whereas $\oplus 1$ negates. XOR can be used to inverse bits.
-* This matches with our understanding that adding 0 shouldn't change $S$, whereas adding 1 should toggle $S$.
+* Also note that $x \oplus 0 = x$ and $x \oplus 1 = \overline{x}$. You can see this from the above truth table, treating $A$ as $x$ and $B$ as $0 \text{ or } 1$, or vice versa.
+    * That is, $\oplus 0$ does nothing, whereas $\oplus 1$ negates.
+    * This matches with our understanding that adding 0 shouldn't change $S$, whereas adding 1 should toggle $S$.
+    * Also, for the [adder-subtractor](#adder-subtractor-4-bit), `XOR` can be used to inverse bits ($\oplus 1$) or do nothing ($\oplus 0$).
 
 #### $C_{out}$ equation explanation
 
