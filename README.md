@@ -260,6 +260,15 @@ end
 
 - Q follows D whenever (i.e. active high) G=1, else holds previous value.
 
+### Behavior (pseudocode)
+
+```verilog
+always @ (G) begin
+  // Q is assigned D as long as G is high
+  Q <= D;
+end
+```
+
 ### Truth table
 
 <!-- | Inputs |  | | Output |
