@@ -58,18 +58,26 @@ This and the [full adder](#full-adder) are my favorite circuit designs 🙂
 - `FlagC`
 - `FlagZ`
 
-### Behavior (basic)
+### Behavior (pseudocode)
 
 ```c
 if (Sub)
-  Sum[3:0] = A[3:0] - B[3:0]
+  temp[4:0] = A[3:0] - B[3:0];
+  Sum[3:0] = temp[3:0];
+  FlagC = (temp[4] == 1);
+  FlagZ = NOR(Sum[3:0])
 else
-  Sum[3:0] = A[3:0] + B[3:0]
+  temp[4:0] = A[3:0] + B[3:0]
+  Sum[3:0] = temp[3:0];
+  FlagC = (temp[4] == 1);
+  FlagZ = NOR(Sum[3:0])
 ```
 
 - We can use a single circuit to do both addition and subtraction 🤯
+- `temp[4]` doesn't actually exist since we assume our registers are 4-bit. It represents the carry out of the most significant bit position.
+- Note that `FlagC` and `FlagZ` are determined in exactly the same way for both addition and subtraction.
 
-### Behavior (detailed)
+### Behavior (details)
 
 - See [Full adder](#full-adder) if you're confused about how the full adder components work.
 - For this example, let's assume our registers are 4-bit.
@@ -116,9 +124,9 @@ num is equal to 0
   - inverse the bits of B by applying a bitwise $\oplus 1$.
     - See the `XOR` explanation in [Full adder](#full-adder) if this doesn't make sense.
   - add the 1 by feeding 1 into $C_{in}$ of the least significant bit position.
-    - This is why the LSB can't be a half adder (without a $C_{in}$ input) for subtraction.
+    - This is why the LSB can't be a half adder (without a $C_{in}$ input) if we want to do subtraction.
 - Otherwise, when `Sub=0`,
-  - bitwise $\oplus 0$ doesn't change the B bits.
+  - preserve (don't change) the B bits by applying a bitwise $\oplus 0$.
     - Again, see the `XOR` explanation in [Full adder](#full-adder) if this doesn't make sense.
   - feed 0 into $C_{in}$ of the least significant bit position, doing nothing.
   - That is, when `Sub=0`, normal addition will occur, as described [above](#addition).
@@ -130,20 +138,24 @@ num is equal to 0
     - What's going on under the hood is `0b1000 - 0b1000 = 0b1000 + 0b0111 + 1`.
     - But note that `0b1000 + 0b0111 = 0b1111`.
     - If we add a number to its own inverse, then the result is always all `1`'s.
-    - Then the carry in `1` from 2's complement will always ripple through to the MSB carry out position and set all Sum bits to 0.
-    - This sets `FlagC=1` and `FlagZ=1`.
+    - Then when `A == B`, the carry in `1` from 2's complement will always ripple through to the MSB carry out position and set all Sum bits to 0.
+      - This sets `FlagC=1` and `FlagZ=1`.
     - Unlike the addition example where `FlagC` could be seen as `S[4]` (which isn't stored in the 4-bit Sum register), it doesn't make any sense to think of `FlagC` as `S[4]` here.
 
 ### Flags
 
-- Now that we're familiar with how the circuit works, let's talk about the flags.
 - Why do we need the flags? Well, if you're in COMP311, the SAP instructions `JC` and `JZ` are a huge part of the class and will be the bane of your existence if you don't understand these concepts.
 - But beyond that, to evaluate boolean expressions, the program checks flags resulting from ALU subtraction, just as we're about to do here.
+- Again, note that in the adder-subtractor, `FlagC` and `FlagZ` are determined the same way for both addition and subtraction since they occur in the same circuit.
+  - `FlagC` is 1 if the MSB produced a carry out, 0 otherwise.
+  - `FlagZ` $=\overline{S_3+S_2+S_1+S_0}$
+    - `NOR` all Sum bits, however many there are.
+- But there are some shortcuts that we can use to determine flags set by `A-B`. Just note that these shortcuts ***DO NOT APPLY*** to `A+B`.
 
 #### Subtraction
 
 - It should make intuitive sense that when we want to compare two numbers, we should subtract them. If $A\lt B$, then $A-B\lt 0$. If they're equal, then $A-B=0$.
-- We have an unsigned comparison table that evaluates these conditions using `FlagC` and `FlagZ` **but only after an ALU subtraction A-B, NOT ALU addition A+B**.
+- We have an **unsigned** comparison table that evaluates these conditions using `FlagC` and `FlagZ` **but only after an ALU subtraction A-B, NOT ALU addition A+B**.
   - But note that `FlagC = MSB produced carry` and `FlagZ = big NOR(Sum bits)` from the circuit hold for both addition and subtraction.
 
 | Condition | Symbol | Equation            |
@@ -157,7 +169,7 @@ num is equal to 0
 
 ***This table works for A-B, NOT A+B***
 
-- Evaluate the conditions before `A-B` to determine what the flags will be.
+- Evaluate the relationships between `A` and `B` ***before*** `A-B` occurs (since in SAP, `A` will be assigned the result of `A-B`) to determine what the flags will be.
 - For example, `5-6` will result in `C=0` since $5<6$. `Z=0`, clearly.
 - `8-8` results in `Z=1` because $8==8$, and `C=1` also because $8\geq 8$.
 - `Z` is 1 if the two numbers are equal.
@@ -168,13 +180,19 @@ num is equal to 0
 - There is no table for determining `FlagC` and `FlagZ` after `A+B`.
   - In fact, using the table for `A+B` is wrong.
 - You have to think about how the flags are determined in the circuit.
-- `FlagC` is 1 if there is overflow. That's all.
+- `FlagC` is 1 if there is overflow ***after*** the addition. That's all.
   - If the registers are 4-bit but the result is 5-bit, then `FlagC=1`.
 - `FlagZ` is 1 if `big NOR(Sum bits)=1`. That is, all Sum bits are 0.
   - This can occur after overflow.
   - For example, `15+1 = 0b1111 + 0b0001 = 0b10000`. This sets `FlagZ=1`.
   - But `15+2 = 0b1111 + 0b0010 = 0b10001` sets `FlagZ=0`.
-  - The only time `FlagZ=1` without overflow is if you add `0+0` (no other pair of unsigned numbers has a sum of 0).
+
+### How to evaluate flags easily
+
+|Operation|When|`FlagC`|`FlagZ`|
+|:---:|:---:|:---:|:---:|
+|`+`|After `A+B`|MSB produced carry|`big NOR(Sum bits)=1`|
+|`-`|Before `A-B`|`1` if $A\geq B$, else `0`|`1` if $A==B$, else `0`|
 
 ## D flip flop (rising edge)
 
@@ -195,6 +213,15 @@ num is equal to 0
 
 - Q follows D on a rising clock edge, else holds previous value.
 - For a falling edge D flip flop, Q follows D on a falling clock edge.
+
+### Behavior (pseudocode)
+
+```verilog
+always_ff @(posedge clock) begin
+  // Q is assigned D on every rising clock edge
+  Q <= D;
+end
+```
 
 ### Truth table
 
@@ -270,6 +297,16 @@ num is equal to 0
 - For example, for the input `01`, the output has a 1 only in the `1`$^{\text{th}}$ bit, $A_1$. The rest of the $A$ bits are 0.
 - This has the opposite behavior of an encoder.
 
+<!-- ### Behavior (pseudocode)
+
+```python
+def decoder(s1, s0):
+  S = 0b
+  A = [0, 0, 0, 0]
+  A[int(S)] = 1
+  return A
+``` -->
+
 ### Truth table
 
 <!-- |Input||Output||||
@@ -305,6 +342,15 @@ num is equal to 0
 - Use S to select which output (A or B) becomes the input Y.
 
 - S acts like a switch determining which input is switched to the output.
+
+### Behavior (pseudocode)
+
+```c
+if (S)
+  A = Y;
+else
+  B = Y;
+```
 
 ### Truth table
 
