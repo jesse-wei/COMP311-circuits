@@ -8,16 +8,17 @@ For convenience, here is the download link for Digital (from the Digital repo ab
 
 [![Download](Download.svg)](https://github.com/hneemann/Digital/releases/latest/download/Digital.zip)
 
-To see my advice on running the program, go to the [wiki](https://github.com/jesse-wei/COMP311-circuits/wiki/How-to-run-Digital). For documentation, go to the [Digital repo](https://github.com/hneemann/Digital).
+To see my advice on running the program, go to the [wiki](https://github.com/jesse-wei/COMP311-circuits/wiki/How-to-run-Digital). For documentation, go to the [Digital repo](https://github.com/hneemann/Digital) or click on the `Help` button in Digital.
 
 # Definitions
 
-Here are some definitions and explanations of these circuits.
+Here are some definitions and explanations of these common circuit designs.
 
-I describe specific cases, such as a DeMUX with 1 select bit and a decoder with 2 select bits. I believe it's easier to understand a specific case than the general case. You can easily generalize to $N$ bits yourself once you understand the specific case.
+I describe specific cases, such as a DeMUX with 1 select bit and a decoder with 2 select bits. It's easier to understand a specific case than the general case. You can easily generalize to $N$ bits yourself once you understand the specific case.
 
 ## Table of contents
 
+* [Adder-subtractor](#adder-subtractor-4-bit)
 * [D flip flop](#d-flip-flop-rising-edge)
 * [D latch](#d-latch-positive)
 * [Decoder](#decoder-s--2)
@@ -26,7 +27,46 @@ I describe specific cases, such as a DeMUX with 1 select bit and a decoder with 
 * [Full Adder](#full-adder)
 * [Inverter clock](#inverter-clock)
 
+## Adder-subtractor (4-bit)
 
+This and the [full adder](#full-adder) are my favorite circuit designs 🙂
+
+![Adder-subtractor (4-bit)](/circuits/Adder-subtractor-4-bit.png)
+
+### Inputs
+
+* `A[3:0]`
+* `B[3:0]`
+
+### Options
+
+* `Sub`
+
+### Outputs
+
+* `Sum[3:0]`
+
+### Flags
+
+* `FlagC`
+* `FlagZ`
+
+### Behavior (basic)
+
+```c
+if (Sub)
+  Sum[3:0] = A[3:0] - B[3:0]
+else
+  Sum[3:0] = A[3:0] + B[3:0]
+```
+
+### Behavior (details)
+
+
+
+### Truth table
+
+* Unnecessary
 
 ## D flip flop (rising edge)
 
@@ -198,9 +238,10 @@ I describe specific cases, such as a DeMUX with 1 select bit and a decoder with 
 
 ## Full adder
 
+This and the [adder-subtractor](#adder-subtractor-4-bit), which uses full adders, are my favorite circuit designs 🙂
+
 ![Full adder](/circuits/Full-Adder.png)
 
-This and the adder-subtractor, which uses full adders, are my favorite circuit designs 🙂
 
 ### Inputs
 
@@ -275,13 +316,19 @@ $$C_{out} = AB + C_{in}(A \oplus B)$$
 
 ### Truth table
 
-* Unnecessary 🙂
+* Unnecessary
+
+### Misc
+
+* There is a full adder design that doesn't use `XOR` gates, but that implementation is pretty mid. The equations involving `XOR` are magical.
 
 ## Inverter clock
 
 ![Inverter clock](/circuits/Inverter-clock.png)
 
 * The simplest implementation of a clock involves simply wiring up, in a loop, an *odd* number of NOT gates.
+  * What would happen if there's an even number of NOT gates?
+  * *Hint: That circuit design wouldn't cause an error during simulation.*
 
 ### Input
 
