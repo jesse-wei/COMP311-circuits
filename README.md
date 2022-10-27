@@ -8,7 +8,7 @@ For convenience, here is the download link for Digital (from the Digital repo ab
 
 [![Download](Download.svg)](https://github.com/hneemann/Digital/releases/latest/download/Digital.zip)
 
-To see how to run the program and other documentation, click the link to Digital's repo above.
+To see my advice on running the program, go to the [wiki](https://github.com/jesse-wei/COMP311-circuits/wiki/How-to-run-Digital). For documentation, go to the [Digital repo](https://github.com/hneemann/Digital).
 
 # Definitions
 
@@ -262,6 +262,7 @@ $$C_{out} = AB + C_{in}(A \oplus B)$$
 
 * Since XOR is addition modulo 2, the $S$ equation matches up with the perhaps more intuitive `S = (A + B + Cin) % 2`
 * Also note that $x \oplus 0 = x$ and $x \oplus 1 = \overline{x}$.
+    * That is, $\oplus 0$ does nothing, whereas $\oplus 1$ negates. XOR can be used to inverse bits.
 * This matches with our understanding that adding 0 shouldn't change $S$, whereas adding 1 should toggle $S$.
 
 #### $C_{out}$ equation explanation
@@ -294,7 +295,7 @@ $$C_{out} = AB + C_{in}(A \oplus B)$$
 
 * This functions as a clock because each NOT gate (and all gates) have $t_{pd}$, propagation delay.
   * In the real world, $t_{pd}$ depends on how the inverter was manufactured and other factors, so this is not a good implementation.
-* Any wire from from the circuit oscillate between 0 and 1.
+* Any wire from the circuit oscillates between 0 and 1.
 
 ### Truth table
 
