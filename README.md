@@ -16,6 +16,8 @@ Here are some definitions and explanations of these common circuit designs.
 
 I describe specific cases, such as a DeMUX with 1 select bit and a decoder with 2 select bits. It's easier to understand a specific case than the general case. You can easily generalize to $N$ bits yourself once you understand the specific case.
 
+I also recomend understanding the behavior of a circuit before looking at the truth table. This makes it easier to understand the truth table.
+
 ## Table of contents
 
 * [Adder-subtractor](#adder-subtractor-4-bit)
@@ -26,6 +28,7 @@ I describe specific cases, such as a DeMUX with 1 select bit and a decoder with 
 * [Encoder](#encoder-s--2)
 * [Full adder](#full-adder)
 * [Inverter clock](#inverter-clock)
+* [MUX](#mux)
 
 ## Adder-subtractor (4-bit)
 
@@ -72,29 +75,96 @@ else
 * With `Sub=0`, inputting `A = 5 = 0b0101` and `B = 6 = 0b0110` results in `S = 11 = 0b1011`, as you would expect.
   * ![5+6](/circuits/Adder-subtractor-5%2B6.png)
   * Works by ripple-carry addition. See [Full adder](#full-adder) if confused.
-* What about `A = 8 = 0b1000` and `B = 8 = 0b1000`?
+* What about `A = B = 8 = 0b1000`?
   * ![8+8](/circuits/Adder-subtractor-8%2B8.png)
   * Note that the most significant bit position produced a carry out.
-  * If you think of the carry out as `S[4]`, then the circuit does output the correct result `S = 16 = 0b10000`. But the Sum register is 4-bit, so it stores only `S[3:0] = 0b0000 = 0`.
+  * If you think of the carry out as `S[4]`, then the circuit does output the correct result `S = 16 = 0b10000`. But the Sum register is 4-bit, so it stores `S[3:0] = 0b0000 = 0` in actuality.
   * In other words, since 16 exceeds the limit of a 4 bit register, there is overflow. We store this information by setting `FlagC=1`.
   * Also, since all Sum bits are 0 (even though `8+8 != 0`), `FlagZ=1`.
+  * This is the same behavior as the following C code.
+    * Rather, C behaves the same as the assembly it is compiled to.
 
+```c
+#include <stdint.h>
+#include <stdio.h>
+
+int main() {
+  uint8_t num = 255;
+  printf("8-bit unsigned num is %d\n", num);
+  printf("after adding 1, num is %d\n", ++num);
+  printf("num is %s 0\n", num ? "not equal to" : "equal to");
+  return 0;
+}
+```
+
+```
+8-bit unsigned num is 255
+after adding 1, num is 0
+num is equal to 0
+```
 #### Subtraction
 
-* How does an adding circuit do subtraction?
+* How does an adder circuit do subtraction?
 * 2's complement 😈
   * `A - B = A + (-B) = A + ~B + 1`
 * When `Sub=1`, 
   * inverse the bits of B by applying a bitwise `XOR` with 1.
     * See the `XOR` explanation in [Full adder](#full-adder) if this doesn't make sense.
   * add the 1 by feeding 1 into $C_{in}$ of the least significant bit position.
+    * This is why the LSB can't be a half adder (without a $C_{in}$ input) for subtraction.
 * With `Sub=1`, inputting `A = 5 = 0b0101` and `B = 6 = 0b0110` results in `S = -1 = 0b1111`.
   * ![5-6](/circuits/Adder-subtractor-5-6.png)
-* What about `A = 8 = 0b1000`
+* What about `A = B = 8 = 0b1000` (i.e. the numbers we're subtracting have the same value)?
+  * ![8-8](/circuits/Adder-subtractor-8-8.png)
+  * All Sum bits are 0, as we might expect, but why is `FlagC=1`?
+    * What's going on under the hood is `0b1000 - 0b1000 = 0b1000 + 0b0111 + 1`.
+    * But note that `0b1000 + 0b0111 = 0b1111`.
+    * If we add a number to its own inverse, then the result is always all `1`'s.
+    * Then the carry in `1` from 2's complement will always ripple through to the MSB carry out position and set all Sum bits to 0.
+    * This sets `FlagC=1` and `FlagZ=1`.
+    * Unlike the addition example where `FlagC` could be seen as `S[4]` (which isn't stored in the 4-bit Sum register), it doesn't make any sense to think of `FlagC` as `S[4]` here.
 
-### Truth table
+### Flags
 
-* Unnecessary
+* Now that we're familiar with how the circuit works, let's talk about the flags.
+* Why do we need the flags? Well, if you're in COMP311, the SAP instructions `JC` and `JZ` are a huge part of the class and will be the bane of your existence if you don't understand these concepts.
+* But beyond that, to evaluate boolean expressions, the program checks flags resulting from ALU subtraction, just as we're about to do here.
+
+#### Subtraction
+
+* It should make intuitive sense that when we want to compare two numbers, we should subtract them. If $A\lt B$, then $A-B\lt 0$. If they're equal, then $A-B=0$.
+* We have an unsigned comparison table that evaluates these conditions using `FlagC` and `FlagZ` **but only after an ALU subtraction A-B, NOT ALU addition A+B**.
+  * But note that `FlagC = MSB produced carry` and `FlagZ = big NOR(Sum bits)` from the circuit hold for both addition and subtraction.
+
+|Condition|Symbol|Equation|
+|---|---|---|
+|`EQ`|$==$|$Z$|
+|`NE`|$\neq$|$\sim Z$|
+|`LTU`|$\lt$|$\sim C$|
+|`LEU`|$\leq$|$\sim C + Z$|
+|`GEU`|$\geq$|$C$|
+|`GTU`|$\gt$|$\sim (\sim C + Z)$|
+
+**This table works for A-B, NOT A+B**
+
+* Evaluate the conditions before `A-B` to determine what the flags will be.
+* For example, `5-6` will result in `C=0` since $5<6$. `Z=0`, clearly.
+* `8-8` results in `Z=1` because $8==8$, and `C=1` also because $8\geq 8$.
+* `Z` is 1 if the two numbers are equal.
+* The easiest way to determine `C` is by evaluating $A \geq B$. The easiest equation involving `C` goes with $\geq$.
+
+#### Addition
+
+* There is no table for determining `FlagC` and `FlagZ` after `A+B`.
+  * In fact, using the table after `A+B` is wrong.
+* You have to think about how the flags are determined in the circuit.
+* `FlagC` is 1 if there is overflow. That's all.
+  * If the registers are 4-bit but the result is 5-bit, then `FlagC=1`.
+* `FlagZ` is 1 if `big NOR(Sum bits)=1`. That is, all Sum bits are 0.
+  * This can occur after overflow.
+  * For example, `15+1 = 0b1111 + 0b0001 = 0b10000`. This sets `FlagZ=1`.
+  * But `15+2 = 0b1111 + 0b0010 = 0b10001` sets `FlagZ=0`.
+  * The only time `FlagZ=1` without overflow is if you add `0+0` (no other pair of unsigned numbers has a sum of 0).
 
 ## D flip flop (rising edge)
 
@@ -163,6 +233,8 @@ else
 
 ## Decoder (S = 2)
 
+![Decoder schematic](/img/Decoder-schematic.png)
+
 ![Decoder (S = 2)](/circuits/Decoder(s%3D2).png)
 
 ### Input
@@ -200,6 +272,8 @@ else
 
 ## DeMUX (S = 1)
 
+![DeMUX schematic](/img/DeMUX-schematic.png)
+
 ![DeMUX (S = 1)](/circuits/DEMUX(s%3D1).png)
 
 ### Inputs
@@ -231,6 +305,8 @@ else
 |1|1|1|0|
 
 ## Encoder (S = 2)
+
+![Encoder schematic](/img/Encoder-schematic.png)
 
 ![Encoder (S = 2)](/circuits/Encoder(s%3D2).png)
 
@@ -333,7 +409,7 @@ $$C_{out} = AB + C_{in}(A \oplus B)$$
 * Also note that $x \oplus 0 = x$ and $x \oplus 1 = \overline{x}$. You can see this from the above truth table, treating $A$ as $x$ and $B$ as $0 \text{ or } 1$, or vice versa.
     * That is, $\oplus 0$ does nothing, whereas $\oplus 1$ negates.
     * This matches with our understanding that adding 0 shouldn't change $S$, whereas adding 1 should toggle $S$.
-    * Also, for the [adder-subtractor](#adder-subtractor-4-bit), `XOR` can be used to inverse bits ($\oplus 1$) or do nothing ($\oplus 0$).
+    * So for the [adder-subtractor](#adder-subtractor-4-bit), `XOR` can be used to inverse `B` bits ($\oplus 1$) for subtraction or do nothing ($\oplus 0$) for addition.
 
 #### $C_{out}$ equation explanation
 
@@ -342,10 +418,6 @@ $$C_{out} = AB + C_{in}(A \oplus B)$$
 * Why use $A \oplus B$ instead of $A + B$ in the equation?
 * Although the $C_{out}$ truth table wouldn't change (i.e. this change is functionally correct), notice that the $S$ equation also contains $A \oplus B$.
   * We can use this one XOR gate in both the $S$ and $C_{out}$ parts of the circuit to save a gate! 🤯
-
-### Truth table
-
-* Unnecessary
 
 ### Misc
 
@@ -376,3 +448,43 @@ $$C_{out} = AB + C_{in}(A \oplus B)$$
 ### Truth table
 
 101010101010101010101010101010101010...
+
+## MUX
+
+![MUX schematic](/img/MUX-schematic.png)
+
+![MUX](/circuits/MUX(s%3D1).png)
+
+### Inputs
+
+* `S`
+* `A`
+* `B`
+
+### Output
+
+* Y
+
+### Behavior
+
+```c
+if (S)
+  Y = B;
+else
+  Y = A;
+```
+
+### Truth table
+
+|S|A|B|Y|
+|---|---|---|---|
+|0|0|0|0|
+|0|0|1|0|
+|0|1|0|1|
+|0|1|1|1|
+|1|0|0|0|
+|1|0|1|1|
+|1|1|0|0|
+|1|1|1|1|
+
+I highly recommend understanding it in terms of the behavior, especially the circuit schematic. You shouldn't need to use this truth table.
