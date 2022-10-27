@@ -155,7 +155,7 @@ num is equal to 0
 | `GEU`     | $\geq$ | $C$                 |
 | `GTU`     | $\gt$  | $\sim (\sim C + Z)$ |
 
-**This table works for A-B, NOT A+B**
+***This table works for A-B, NOT A+B***
 
 - Evaluate the conditions before `A-B` to determine what the flags will be.
 - For example, `5-6` will result in `C=0` since $5<6$. `Z=0`, clearly.
@@ -166,7 +166,7 @@ num is equal to 0
 #### Addition
 
 - There is no table for determining `FlagC` and `FlagZ` after `A+B`.
-  - In fact, using the table after `A+B` is wrong.
+  - In fact, using the table for `A+B` is wrong.
 - You have to think about how the flags are determined in the circuit.
 - `FlagC` is 1 if there is overflow. That's all.
   - If the registers are 4-bit but the result is 5-bit, then `FlagC=1`.
