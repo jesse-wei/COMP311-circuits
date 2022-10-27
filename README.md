@@ -113,10 +113,15 @@ num is equal to 0
 - 2's complement 😈
   - `A - B = A + (-B) = A + ~B + 1`
 - When `Sub=1`,
-  - inverse the bits of B by applying a bitwise `XOR` with 1.
+  - inverse the bits of B by applying a bitwise $\oplus 1$.
     - See the `XOR` explanation in [Full adder](#full-adder) if this doesn't make sense.
   - add the 1 by feeding 1 into $C_{in}$ of the least significant bit position.
     - This is why the LSB can't be a half adder (without a $C_{in}$ input) for subtraction.
+- Otherwise, when `Sub=0`,
+  - bitwise $\oplus 0$ doesn't change the B bits.
+    - Again, see the `XOR` explanation in [Full adder](#full-adder) if this doesn't make sense.
+  - feed 0 into $C_{in}$ of the least significant bit position, doing nothing.
+  - That is, when `Sub=0`, normal addition will occur, as described [above](#addition).
 - With `Sub=1`, inputting `A = 5 = 0b0101` and `B = 6 = 0b0110` results in `S = -1 = 0b1111`.
   - ![5-6](/circuits/Adder-subtractor-5-6.png)
 - What about `A = B = 8 = 0b1000` (i.e. the numbers we're subtracting have the same value)?
