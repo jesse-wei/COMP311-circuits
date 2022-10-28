@@ -192,7 +192,7 @@ num is equal to 0
 
 ### How to evaluate flags easily in a SAP program
 
-|Operation|When|`FlagC`|`FlagZ`|
+|Operation|When to check conditions|`FlagC`|`FlagZ`|
 |:---:|:---:|:---:|:---:|
 |`+`|After `A+B`|MSB produced carry|`big NOR(Sum bits)=1`|
 |`-`|Before `A-B`|`1` if $A\geq B$, else `0`|`1` if $A==B$, else `0`|
