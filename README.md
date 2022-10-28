@@ -88,12 +88,13 @@ else
 - With `Sub=0`, inputting `A = 5 = 0b0101` and `B = 6 = 0b0110` results in `S = 11 = 0b1011`, as you would expect.
   - ![5+6](/circuits/Adder-subtractor-5%2B6.png)
   - Works by ripple-carry addition. See [Full adder](#full-adder) if confused.
-- What about `A = B = 8 = 0b1000`?
+- What about `A = B = 8 = 0b1000`? $8+8$ *should* equal $16$, right?
   - ![8+8](/circuits/Adder-subtractor-8%2B8.png)
   - Note that the most significant bit position produced a carry out.
-  - If you think of the carry out as `S[4]`, then the circuit does output the correct result `S = 16 = 0b10000`. But the Sum register is 4-bit, so it stores `S[3:0] = 0b0000 = 0` in actuality.
-  - In other words, since 16 exceeds the limit of a 4 bit register, there is overflow. We store this information by setting `FlagC=1`.
-  - Also, since all Sum bits are 0 (even though `8+8 != 0`), `FlagZ=1`.
+  - If you think of the carry out as `S[4]`, then the circuit computes the correct result `S = 16 = 0b10000`. But the Sum register is 4-bit, so the Sum register stores `S[3:0] = 0b0000 = 0` in actuality.
+    - With 4 bit registers, `8 + 8 = 0`.
+  - Since 16 exceeds the limit of a 4 bit register, there is overflow. We store this information by setting `FlagC=1`.
+  - Also, since all Sum bits are 0 (even though $8+8 \neq 0$), `FlagZ=1`.
   - This is the same behavior as the following C code.
     - Rather, C behaves the same as the assembly it is compiled to.
 
@@ -138,15 +139,15 @@ num is equal to 0
   - All Sum bits are 0, as we might expect, but why is `FlagC=1`?
     - What's going on under the hood is `0b1000 - 0b1000 = 0b1000 + 0b0111 + 1`.
     - But note that `0b1000 + 0b0111 = 0b1111`.
-    - If we add a number to its own inverse, then the result is always all `1`'s.
-    - Then when `A == B`, the carry in `1` from 2's complement will always ripple through to the MSB carry out position and set all Sum bits to 0.
+      - If we add a number to its own inverse, then the result is always all `1`'s.
+    - Then when `A == B`, the carry in `1` from 2's complement will always ripple through to the MSB carry out position and set all Sum bits to 0 along the way.
       - This sets `FlagC=1` and `FlagZ=1`.
-    - Unlike the addition example where `FlagC` could be seen as `S[4]` (which isn't stored in the 4-bit Sum register), it doesn't make any sense to think of `FlagC` as `S[4]` here.
+    - Unlike the addition example where `FlagC` could be seen as `S[4]` (which isn't stored in the 4-bit Sum register!), it doesn't make any sense to think of `FlagC` as `S[4]` here.
 
 ### Flags
 
 - Why do we need the flags? Well, if you're in COMP311, the SAP instructions `JC` and `JZ` are a huge part of the class and will be the bane of your existence if you don't understand these concepts.
-- But beyond that, to evaluate boolean expressions, the program checks flags resulting from ALU subtraction, just as we're about to do here.
+- But beyond that, programs evaluate boolean expressions by checking flags resulting from ALU subtraction, just as we're about to do here.
 - Again, note that in the adder-subtractor, `FlagC` and `FlagZ` are determined the same way for both addition and subtraction since they occur in the same circuit.
   - `FlagC` is 1 if the MSB produced a carry out, 0 otherwise.
   - `FlagZ` $=\overline{S_3+S_2+S_1+S_0}$
@@ -155,10 +156,11 @@ num is equal to 0
 
 #### Subtraction
 
-- It should make intuitive sense that when we want to compare two numbers, we should subtract them. If $A\lt B$, then $A-B\lt 0$. If they're equal, then $A-B=0$.
-- We have an **unsigned** comparison table that evaluates these conditions using `FlagC` and `FlagZ` **but only after an ALU subtraction A-B, NOT ALU addition A+B**.
-  - But note that `FlagC = MSB produced carry` and `FlagZ = big NOR(Sum bits)` from the circuit hold for both addition and subtraction.
+- It should make intuitive sense that when we want to compare two numbers, we should subtract them. If $A\lt B$, then $A-B\lt 0$. If they're equal, then $A-B=0$. I'll let you figure out the third case.
+- We have an **unsigned** comparison table that evaluates these conditions using `FlagC` and `FlagZ` **but only after an ALU subtraction `A-B`, NOT ALU addition `A+B`**.
+  - Again, note that `FlagC = MSB produced carry` and `FlagZ = big NOR(Sum bits)` from the circuit hold for both addition and subtraction. But the unsigned comparison table holds only for `A-B`.
 
+##### Unsigned comparison table
 | Condition | Symbol | Equation            |
 | :---------: | :------: | :-------------------: |
 | `EQ`      | $==$   | $Z$                 |
@@ -188,7 +190,7 @@ num is equal to 0
   - For example, `15+1 = 0b1111 + 0b0001 = 0b10000`. This sets `FlagZ=1`.
   - But `15+2 = 0b1111 + 0b0010 = 0b10001` sets `FlagZ=0`.
 
-### How to evaluate flags easily
+### How to evaluate flags easily in a SAP program
 
 |Operation|When|`FlagC`|`FlagZ`|
 |:---:|:---:|:---:|:---:|
