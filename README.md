@@ -2,13 +2,13 @@
 
 ## Table of contents
 
-- [Adder-subtractor](#adder-subtractor-4-bit-⭐) ⭐
+- [Adder-subtractor](#adder-subtractor-4-bit) ⭐
 - [D flip flop](#d-flip-flop-rising-edge)
 - [D latch](#d-latch-positive)
 - [Decoder](#decoder-s--2)
 - [DeMUX](#demux-s--1)
 - [Encoder](#encoder-s--2)
-- [Full adder](#full-adder-⭐) ⭐
+- [Full adder](#full-adder) ⭐
 - [Inverter clock](#inverter-clock)
 - [MUX](#mux)
 
@@ -32,7 +32,7 @@ I describe specific cases, such as a DeMUX with 1 select bit and a decoder with 
 
 I also recomend understanding the behavior of a circuit by analyzing the high-level circuit schematics and reading my high-level behavioral specifications before looking at the truth table. This makes it easier to understand the truth table.
 
-## Adder-subtractor (4-bit) ⭐
+## Adder-subtractor (4-bit)
 
 This and the [full adder](#full-adder) are my favorite circuit designs 🙂
 
@@ -413,7 +413,7 @@ else
 - All input combinations that aren't <span style="color:green">one-hot</span> (for the above 4-to-2 encoder, there are 12 omitted rows) result in $S_0S_1=\text{xx}$ because the encoder does not care about inputs that aren't one-hot. The output doesn't matter for inputs that aren't one-hot.
 - This truth table is different (only in naming) from the one given in Brent's slides.
 
-## Full adder ⭐
+## Full adder
 
 This and the [adder-subtractor](#adder-subtractor-4-bit), which uses full adders, are my favorite circuit designs 🙂
 
