@@ -2,13 +2,13 @@
 
 ## Table of contents
 
-- [Adder-subtractor](#adder-subtractor-4-bit) ⭐
+- [Adder-subtractor](#adder-subtractor-4-bit-⭐) ⭐
 - [D flip flop](#d-flip-flop-rising-edge)
 - [D latch](#d-latch-positive)
 - [Decoder](#decoder-s--2)
 - [DeMUX](#demux-s--1)
 - [Encoder](#encoder-s--2)
-- [Full adder](#full-adder) ⭐
+- [Full adder](#full-adder-⭐) ⭐
 - [Inverter clock](#inverter-clock)
 - [MUX](#mux)
 
