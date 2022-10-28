@@ -2,13 +2,13 @@
 
 ## Table of contents
 
-- [Adder-subtractor](#adder-subtractor-4-bit)
+- [Adder-subtractor](#adder-subtractor-4-bit) ⭐
 - [D flip flop](#d-flip-flop-rising-edge)
 - [D latch](#d-latch-positive)
 - [Decoder](#decoder-s--2)
 - [DeMUX](#demux-s--1)
 - [Encoder](#encoder-s--2)
-- [Full adder](#full-adder)
+- [Full adder](#full-adder) ⭐
 - [Inverter clock](#inverter-clock)
 - [MUX](#mux)
 
@@ -194,7 +194,7 @@ num is equal to 0
 
 |Operation|When to check conditions|`FlagC`|`FlagZ`|
 |:---:|:---:|:---:|:---:|
-|`+`|After `A+B`|MSB produced carry|`big NOR(Sum bits)=1`|
+|`+`|After `A+B`|`1` if MSB produced carry, else `0`|`1` if `big NOR(Sum bits)=1`, else `0`|
 |`-`|Before `A-B`|`1` if $A\geq B$, else `0`|`1` if $A==B$, else `0`|
 
 ## D flip flop (rising edge)
