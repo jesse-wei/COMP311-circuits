@@ -32,7 +32,7 @@ I describe specific cases, such as a DeMUX with 1 select bit and a decoder with 
 
 I also recomend understanding the behavior of a circuit by analyzing the high-level circuit schematics and reading my high-level behavioral specifications before looking at the truth table. This makes it easier to understand the truth table.
 
-## Adder-subtractor (4-bit)
+## Adder-subtractor (4-bit) ⭐
 
 This and the [full adder](#full-adder) are my favorite circuit designs 🙂
 
@@ -229,7 +229,7 @@ end
 ### Truth table
 
 | `CLK`                                    | $D$ | $Q_p$ | $Q$ |
-| ---------------------------------------- | --- | ----- | --- |
+| :----------------------------------------: | :---: | :-----: | :---: |
 | Rising edge                              | 0   | x     | 0   |
 | Rising edge                              | 1   | x     | 1   |
 | Falling edge, active high, or active low | x   | 0     | 0   |
@@ -325,7 +325,7 @@ def decoder(s1, s0):
 |---|---|---|---|---|---| -->
 
 | $S_1$ | $S_0$ | $A_0$ | $A_1$ | $A_2$ | $A_3$ |
-| ----- | ----- | ----- | ----- | ----- | ----- |
+| :-----: | :-----: | :-----: | :-----: | :-----: | :-----: |
 | 0     | 0     | 1     | 0     | 0     | 0     |
 | 0     | 1     | 0     | 1     | 0     | 0     |
 | 1     | 0     | 0     | 0     | 1     | 0     |
@@ -370,7 +370,7 @@ else
 |---|---| -->
 
 | $S$ | $Y$ | $A$ | $B$ |
-| --- | --- | --- | --- |
+| :---: | :---: | :---: | :---: |
 | 0   | 0   | 0   | 0   |
 | 0   | 1   | 0   | 1   |
 | 1   | 0   | 0   | 0   |
@@ -404,7 +404,7 @@ else
 |---|---|---|---|---|---|---| -->
 
 | $A_3$ | $A_2$ | $A_1$ | $A_0$ | $S_0$ | $S_1$ |
-| ----- | ----- | ----- | ----- | ----- | ----- |
+| :-----: | :-----: | :-----: | :-----: | :-----: | :-----: |
 | 0     | 0     | 0     | 1     | 0     | 0     |
 | 0     | 0     | 1     | 0     | 0     | 1     |
 | 0     | 1     | 0     | 0     | 1     | 0     |
@@ -413,11 +413,11 @@ else
 - All input combinations that aren't <span style="color:green">one-hot</span> (for the above 4-to-2 encoder, there are 12 omitted rows) result in $S_0S_1=\text{xx}$ because the encoder does not care about inputs that aren't one-hot. The output doesn't matter for inputs that aren't one-hot.
 - This truth table is different (only in naming) from the one given in Brent's slides.
 
-## Full adder
-
-![Full adder schematic](/img/Full-adder-schematic.png)
+## Full adder ⭐
 
 This and the [adder-subtractor](#adder-subtractor-4-bit), which uses full adders, are my favorite circuit designs 🙂
+
+![Full adder schematic](/img/Full-adder-schematic.png)
 
 ![Full adder](/img/Full-Adder.png)
 
@@ -473,7 +473,7 @@ $$C_{out} = AB + C_{in}(A \oplus B)$$
 - The XOR ( $\oplus$ ) operation can be understood as addition modulo 2.
 
 | $A$ | $B$ | $A \oplus B$ | $(A + B) \bmod{2}$ |
-| --- | --- | :----------: | :----------------: |
+| :---: | :---: | :----------: | :----------------: |
 | 0   | 0   |      0       |         0          |
 | 0   | 1   |      1       |         1          |
 | 1   | 0   |      1       |         1          |
@@ -501,11 +501,11 @@ $$C_{out} = AB + C_{in}(A \oplus B)$$
 
 ![Inverter clock](/img/Inverter-clock.png)
 
+*Note*: When running this circuit, you will get an error "Logic seems to oscillate," which is the intended behavior for this circuit lol
+
 - The simplest implementation of a clock involves simply wiring up, in a loop, an _odd_ number of NOT gates.
   - What would happen if there's an even number of NOT gates?
   - _Hint: That circuit design wouldn't cause an error during simulation._
-- Note: When running this circuit, you will get an error "Logic seems to oscillate"
-  - Which, of course, is what we intend to do with this clock design lol
 
 ### Input
 
@@ -558,7 +558,7 @@ A MUX with more select bits would just be a long chain of `else if`'s (of course
 ### Truth table
 
 | S   | A   | B   | Y   |
-| --- | --- | --- | --- |
+| :---: | :---: | :---: | :---: |
 | 0   | 0   | 0   | 0   |
 | 0   | 0   | 1   | 0   |
 | 0   | 1   | 0   | 1   |
