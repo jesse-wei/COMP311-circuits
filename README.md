@@ -76,7 +76,7 @@ else
 - We can use a single circuit to do both addition and subtraction 🤯
 - `temp[4]` doesn't actually exist since we assume our registers are 4-bit. It represents the carry out of the most significant bit position.
 - Note that *in the circuit*, `FlagC` and `FlagZ` are determined in exactly the same way for both addition and subtraction.
-    - There is an unsigned comparison table we can use as a shortcut for determining flags **after A-B only***, NOT A+B.
+    - There is an unsigned comparison table we can use as a shortcut for determining flags ***after A-B only***, NOT A+B.
 
 ### Behavior (details)
 
