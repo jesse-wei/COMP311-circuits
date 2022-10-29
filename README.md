@@ -388,7 +388,7 @@ else
 
 - $A_3A_2A_1A_0$
   - 4-bit input
-  - The input should be one-hot (this term is defined in the [Decoder](#decoder-s--2)) section.
+  - The input should be one-hot (this term is defined in the [Decoder](#decoder-s--2) section).
   - If not, then the output is `xx`.
 
 ### Output
