@@ -298,16 +298,18 @@ end
 ### Output
 
 - $A_0A_1A_2A_3$
-  - 4-bit output
+  - 4-bit one-hot output
+    - One-hot means one bit is `1`, and all others are `0`.
+    - For example, `0001`, `0010`, `0100`, and `1000` are one-hot, and the other 12 4-bit binary values are not one-hot.
 
 ### Behavior
 
 - This circuit "unfolds" or "decompresses" a binary number.
 - Each possible output is <span style="color:green">one-hot</span>.
-    <!-- * One of $\{A_3, A_2, A_1, A_0\}$ is 1, and all others are 0. -->
 - The binary number $S_1S_0$ selects which bit is hot.
 - For example, for the input `01`, the output has a 1 only in the `1`$^{\text{th}}$ bit, $A_1$. The rest of the $A$ bits are 0.
 - This has the opposite behavior of an encoder.
+- However, looking at the circuit designs, the design of a decoder is most similar to that of a [DeMUX](#demux-s--1).
 
 <!-- ### Behavior (pseudocode)
 
@@ -352,8 +354,8 @@ def decoder(s1, s0):
 ### Behavior
 
 - Use S to select which output (A or B) becomes the input Y.
-
 - S acts like a switch determining which input is switched to the output.
+- The design of a DeMUX is very similar to that of a [Decoder](#decoder-s--2).
 
 ### Behavior (pseudocode)
 
@@ -386,6 +388,8 @@ else
 
 - $A_3A_2A_1A_0$
   - 4-bit input
+  - The input should be one-hot (this term is defined in the [Decoder](#decoder-s--2)) section.
+  - If not, then the output is `xx`.
 
 ### Output
 
@@ -397,7 +401,7 @@ else
 - This circuit compresses a <span style="color:green">one-hot</span> input.
 - Given a <span style="color:green">one-hot</span> input, the output is a binary number that tells you which bit was the hot one.
     - For example, looking at the third row where $A_3A_2A_1A_0=\texttt{0b0100}$, because the $2^{\text{nd}}$ bit is hot, the output $S_0S_1=\texttt{0b10}$ is $2$.
-- This has the opposite behavior of a decoder.
+- This is the opposite behavior of a decoder.
 
 ### Truth table
 
@@ -410,8 +414,9 @@ else
 | 0     | 0     | 1     | 0     | 0     | 1     |
 | 0     | 1     | 0     | 0     | 1     | 0     |
 | 1     | 0     | 0     | 0     | 1     | 1     |
+|all|other|4-bit|inputs|x|x|
 
-- All input combinations that aren't <span style="color:green">one-hot</span> (for the above 4-to-2 encoder, there are 12 omitted rows) result in $S_0S_1=\text{xx}$ because the encoder does not care about inputs that aren't one-hot. The output doesn't matter for inputs that aren't one-hot.
+- All inputs that aren't <span style="color:green">one-hot</span> (for the above 4-to-2 encoder with 4-bit inputs, there are 12 possible inputs that aren't one-hot) result in $S_0S_1=\text{xx}$ because the encoder does not care about inputs that aren't one-hot. The output doesn't matter for inputs that aren't one-hot.
 - This truth table is different (only in naming) from the one given in Brent's slides.
 
 ## Full adder
