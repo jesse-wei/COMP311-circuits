@@ -394,8 +394,9 @@ else
 
 ### Behavior
 
-- This circuit compresses a <span style="color:green">one-hot</span> binary number.
+- This circuit compresses a <span style="color:green">one-hot</span> input.
 - Given a <span style="color:green">one-hot</span> input, the output is a binary number that tells you which bit was the hot one.
+    - For example, looking at the third row where $A_3A_2A_1A_0=\texttt{0b0100}$, because the $2^{\text{nd}}$ bit is hot, the output $S_0S_1=\texttt{0b10}$ is $2$.
 - This has the opposite behavior of a decoder.
 
 ### Truth table
