@@ -77,7 +77,7 @@ FlagZ = NOR(Sum[3:0]);
 - We can use a single circuit to do both addition and subtraction 🤯
 - `temp[4]` doesn't actually exist since we assume our registers are 4-bit. It represents the carry out of the most significant bit position.
 - Note that *in the circuit and corresponding pseudocode*, `FlagC`, `FlagZ`, and `Sum[3:0]` are determined in exactly the same way for both addition and subtraction.
-    - But while tracing through a SAP program, there is an unsigned comparison table we can use as a shortcut for determining flags ***after A-B only***, NOT A+B.
+    - But while tracing through a SAP program, there is an unsigned comparison table we can use as a shortcut for determining flags ***after `A-B` only***, NOT `A+B`.
 
 ### Behavior (details)
 
@@ -157,11 +157,12 @@ num is equal to 0
 
 #### Subtraction
 
-- It should make intuitive sense that when we want to compare two numbers, we should subtract them. If $A\lt B$, then $A-B\lt 0$. If they're equal, then $A-B=0$. I'll let you figure out the third case.
+- It should make intuitive sense that when we want to compare two numbers, we should subtract them. If $A\lt B$, then $A-B\lt 0$. If they're equal, then $A-B=0$. I leave figuring out the third case as an exercise for the reader.
 - We have an **unsigned** comparison table that evaluates these conditions using `FlagC` and `FlagZ` **but only after an ALU subtraction `A-B`, NOT ALU addition `A+B`**.
   - Again, note that `FlagC = MSB produced carry` and `FlagZ = big NOR(Sum bits)` from the circuit hold for both addition and subtraction. But the unsigned comparison table holds only for `A-B`.
 
-##### Unsigned comparison table
+##### Unsigned comparison table for ALU subtraction
+
 | Condition | Symbol | Equation            |
 | :---------: | :------: | :-------------------: |
 | `EQ`      | $==$   | $Z$                 |
@@ -178,12 +179,19 @@ num is equal to 0
 - `8-8` results in `Z=1` because $8==8$, and `C=1` also because $8\geq 8$.
 - `Z` is 1 if the two numbers are equal.
 - The easiest way to determine `C` is by evaluating $A \geq B$. The easiest equation involving `C` goes with $\geq$.
+- Some explanations of the table:
+  - It should be obvious that $==$ corresponds to `FlagZ`.
+  - $\neq$ is the negation of $==$, so $\neq$ corresponds to $\sim Z$.
+  - I'm unsure how to rigorously prove that $\geq$ corresponds to $C$, so let's simply accept that for now. TODO: Prove this statement.
+  - Given the above, we know $\lt$ is the negation of $\geq$, so $\lt$ corresponds to $\sim C$.
+  - $\leq \iff (\lt \vee ==)$, so $\leq$ corresponds to $\sim C + Z$.
+  - Finally, $\gt$ is the negation of $\leq$, so $\gt$ corresponds to $\sim (\sim C + Z)$.
 
 #### Addition
 
-- There is no table for determining `FlagC` and `FlagZ` after `A+B`.
-  - In fact, using the table for `A+B` is wrong.
-- You have to think about how the flags are determined in the circuit.
+- There is no comparison table for determining `FlagC` and `FlagZ` after `A+B`. As mentioned above, determining the relationship between $A$ and $B$ requires subtraction.
+  - Using the comparison table to determine flags after `A+B` is wrong.
+- For addition, think about how the flags are determined in the circuit.
 - `FlagC` is 1 if there is overflow ***after*** the addition. That's all.
   - If the registers are 4-bit but the result is 5-bit, then `FlagC=1`.
 - `FlagZ` is 1 if `big NOR(Sum bits)=1`. That is, all Sum bits are 0.
