@@ -61,22 +61,23 @@ This and the [full adder](#full-adder) are my favorite circuit designs 🙂
 ### Behavior (pseudocode)
 
 ```c
-if (Sub)
-  temp[4:0] = A[3:0] - B[3:0];
-  Sum[3:0] = temp[3:0];
-  FlagC = (temp[4] == 1);
-  FlagZ = NOR(Sum[3:0])
-else
+bool FlagC, FlagZ;
+int temp[5];
+int Sum[4];
+if (Sub) {
+  temp[4:0] = A[3:0] - B[3:0];    // Two's complement
+} else {
   temp[4:0] = A[3:0] + B[3:0]
-  Sum[3:0] = temp[3:0];
-  FlagC = (temp[4] == 1);
-  FlagZ = NOR(Sum[3:0])
+}
+Sum[3:0] = temp[3:0];
+FlagC = (temp[4] == 1);
+FlagZ = NOR(Sum[3:0]);
 ```
 
 - We can use a single circuit to do both addition and subtraction 🤯
 - `temp[4]` doesn't actually exist since we assume our registers are 4-bit. It represents the carry out of the most significant bit position.
-- Note that *in the circuit*, `FlagC` and `FlagZ` are determined in exactly the same way for both addition and subtraction.
-    - There is an unsigned comparison table we can use as a shortcut for determining flags ***after A-B only***, NOT A+B.
+- Note that *in the circuit and corresponding pseudocode*, `FlagC`, `FlagZ`, and `Sum[3:0]` are determined in exactly the same way for both addition and subtraction.
+    - But while tracing through a SAP program, there is an unsigned comparison table we can use as a shortcut for determining flags ***after A-B only***, NOT A+B.
 
 ### Behavior (details)
 
