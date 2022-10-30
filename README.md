@@ -195,8 +195,8 @@ num is equal to 0
 
 |Operation|When to check conditions|`FlagC`|`FlagZ`|
 |:---:|:---:|:---:|:---:|
-|`+`|After `A+B`|`1` if Carry bit is 1, else `0`|`1` if `big NOR(Sum bits)=1`, else `0`|
-|`-`|Before `A-B`|`1` if $A\geq B$, else `0`|`1` if $A==B$, else `0`|
+|$+$|After `A+B`|`1` if Carry bit is 1, else `0`|`1` if `big NOR(Sum bits)=1`, else `0`|
+|$-$|Before `A-B`|`1` if $A\geq B$, else `0`|`1` if $A==B$, else `0`|
 
 ## D flip flop (rising edge)
 
