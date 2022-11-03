@@ -179,7 +179,7 @@ num is equal to 0
 - `Z` is 1 if the two numbers are equal.
 - The easiest way to determine `C` is by evaluating $A \geq B$. The easiest equation involving `C` goes with $\geq$.
 - Some explanations of the table:
-  - It should be obvious that $==$ corresponds to `FlagZ`.
+  - It should be obvious that $==$ corresponds to $Z$.
   - $\neq$ is the negation of $==$, so $\neq$ corresponds to $\sim Z$.
   - I'm unsure how to rigorously prove that $\geq$ corresponds to $C$, so let's simply accept that for now. TODO: Prove this statement.
   - Given the above, we know $\lt$ is the negation of $\geq$, so $\lt$ corresponds to $\sim C$.
