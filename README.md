@@ -30,7 +30,7 @@ Here are some definitions and explanations of these common circuit designs.
 
 I describe specific cases, such as a DeMUX with 1 select bit and a decoder with 2 select bits. It's easier to understand a specific case than the general case. You can easily generalize to $N$ bits yourself once you understand the specific case.
 
-I also recomend understanding the behavior of a circuit by analyzing the high-level circuit schematics and reading my high-level behavioral specifications before looking at the truth table. This makes it easier to understand the truth table.
+I also recommend understanding the behavior of a circuit by understanding the high-level circuit schematics and high-level behavioral specifications before looking at the truth table. This makes it easier to understand the truth table.
 
 ## Adder-subtractor (4-bit)
 
