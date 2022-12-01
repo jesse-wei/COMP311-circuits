@@ -86,10 +86,10 @@ FlagZ = NOR(Sum[3:0]);
 #### Addition
 
 - With `Sub=0`, inputting `A = 5 = 0b0101` and `B = 6 = 0b0110` results in `S = 11 = 0b1011`, as you would expect.
-  - ![5+6](/img/Adder-subtractor-5plus6.png)
+![5+6](/img/Adder-subtractor-5plus6.png)
   - Works by ripple-carry addition. See [Full adder](#full-adder) if confused.
 - What about `A = B = 8 = 0b1000`? $8+8$ *should* equal $16$, right?
-  - ![8+8](/img/Adder-subtractor-8plus8.png)
+![8+8](/img/Adder-subtractor-8plus8.png)
   - Note that the most significant bit position produced a carry out.
   - If you think of the carry out as `S[4]`, then the circuit computes the correct result `S = 16 = 0b10000`. But the Sum register is 4-bit, so the Sum register stores `S[3:0] = 0b0000 = 0` in actuality.
     - With 4 bit registers, `8 + 8 = 0`.
@@ -133,9 +133,9 @@ num is equal to 0
   - feed 0 into $C_{in}$ of the least significant bit position, doing nothing.
   - That is, when `Sub=0`, normal addition will occur, as described [above](#addition).
 - With `Sub=1`, inputting `A = 5 = 0b0101` and `B = 6 = 0b0110` results in `S = -1 = 0b1111`.
-  - ![5-6](img/Adder-subtractor-5-6.png)
+![5-6](/img/Adder-subtractor-5-6.png)
 - What about `A = B = 8 = 0b1000` (i.e. the numbers we're subtracting have the same value)?
-  - ![8-8](img/Adder-subtractor-8-8.png)
+![8-8](/img/Adder-subtractor-8-8.png)
   - All Sum bits are 0, as we might expect, but why is `FlagC=1`?
     - What's going on under the hood is `0b1000 - 0b1000 = 0b1000 + 0b0111 + 1`.
     - But note that `0b1000 + 0b0111 = 0b1111`.
