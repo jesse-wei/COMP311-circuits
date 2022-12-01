@@ -86,7 +86,7 @@ FlagZ = NOR(Sum[3:0]);
 #### Addition
 
 - With `Sub=0`, inputting `A = 5 = 0b0101` and `B = 6 = 0b0110` results in `S = 11 = 0b1011`, as you would expect.
-  - ![5+6](img/Adder-subtractor-5+6.png)
+  - ![5+6](/jesse-wei/COMP311-circuits/blob/main/img/Adder-subtractor-4-bit.png)
   - Works by ripple-carry addition. See [Full adder](#full-adder) if confused.
 - What about `A = B = 8 = 0b1000`? $8+8$ *should* equal $16$, right?
   - ![8+8](img/Adder-subtractor-8+8.png)
