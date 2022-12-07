@@ -62,15 +62,15 @@ This and the [full adder](#full-adder) are my favorite circuit designs 🙂
 
 ```c
 bool FlagC, FlagZ;
-int temp[5];
-int Sum[4];
+int temp[5];                      // Store the carry out bit
+int Sum[4];                       // But this is the actual Sum register
 if (Sub)
   temp[4:0] = A[3:0] - B[3:0];    // Two's complement
 else
   temp[4:0] = A[3:0] + B[3:0];
 Sum[3:0] = temp[3:0];
 FlagC = (temp[4] == 1);
-FlagZ = NOR(Sum[3:0]);
+FlagZ = NOR(Sum[3], Sum[2], Sum[1], Sum[0]);
 ```
 
 - We can use a single circuit to do both addition and subtraction 🤯
