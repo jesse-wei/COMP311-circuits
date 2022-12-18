@@ -3,6 +3,7 @@
 ## Table of contents
 
 - [Adder-subtractor](#adder-subtractor-4-bit) ⭐
+  - Understanding of [full adder](#full-adder) is required. Read though that first.
 - [D flip flop](#d-flip-flop-rising-edge)
 - [D latch](#d-latch-positive)
 - [Decoder](#decoder-s--2)
