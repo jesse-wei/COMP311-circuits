@@ -17,7 +17,7 @@ Designs are from Professors Brent Munsell and Montek Singh.
 
 ## Digital
 
-Use [Digital](https://github.com/hneemann/Digital), an awesome circuit creation & simulation program made by [hneemann](https://github.com/hneemann/), to open and run simulations on `.dig` files.
+Use [Digital](https://github.com/hneemann/Digital), an awesome circuit creation & simulation program made by [hneemann](https://github.com/hneemann/), to open and run simulations on `.dig` files. All of the circuit designs are in the [circuits](https://github.com/jesse-wei/COMP311-circuits/tree/main/circuits) folder, and I highly recommend that you play around with the designs.
 
 Here's the download link for Digital (from the Digital repo above). This is not my software.
 
