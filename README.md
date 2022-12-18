@@ -37,6 +37,8 @@ I also recommend understanding the behavior of a circuit by understanding the hi
 
 This and the [full adder](#full-adder) are my favorite circuit designs 🙂
 
+This section requires understanding of the [full adder](#full-adder) component. If you don't know what a full adder does, then read through that section first.
+
 ![Adder-subtractor schematic](/img/Adder-subtractor-schematic.png)
 
 ![Adder-subtractor (4-bit)](/img/Adder-subtractor-4-bit.png)
