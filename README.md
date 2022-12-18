@@ -56,7 +56,9 @@ This and the [full adder](#full-adder) are my favorite circuit designs 🙂
 ### Flags
 
 - `FlagC`
+  - C means "carry"
 - `FlagZ`
+  - Z means "zero"
 
 ### Behavior (pseudocode)
 
