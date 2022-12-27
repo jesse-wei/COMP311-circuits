@@ -125,8 +125,8 @@ num is equal to 0
 #### Subtraction
 
 - How does an adder circuit do subtraction?
-- 2's complement 😈
-  - `A - B = A + (-B) = A + ~B + 1`
+- Two's complement 😈
+  - $A - B = A + (-B) = A + \sim B + 1$
 - When `Sub=1`,
   - inverse the bits of B by applying a bitwise $\oplus 1$.
     - See the `XOR` explanation in [Full adder](#full-adder) if this doesn't make sense.
