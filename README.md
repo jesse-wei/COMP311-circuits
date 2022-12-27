@@ -13,7 +13,7 @@
 - [Inverter clock](#inverter-clock)
 - [MUX](#mux)
 
-Designs are from Professors Brent Munsell and Montek Singh.
+Designs are from slides made by Professors Brent Munsell and Montek Singh.
 
 ## Digital
 
@@ -500,7 +500,7 @@ $$C_{out} = AB + C_{in}(A \oplus B)$$
 
 - Since XOR is addition modulo 2, the $S$ equation matches up with the perhaps more intuitive `S = (A + B + Cin) % 2`
 - Also note that $x \oplus 0 = x$ and $x \oplus 1 = \overline{x}$. You can see this from the above truth table, treating $A$ as $x$ and $B$ as $0 \text{ or } 1$, or vice versa.
-  - That is, $\oplus 0$ does nothing, whereas $\oplus 1$ negates.
+  - That is, $x \oplus 0$ does nothing to $x$, whereas $x \oplus 1$ negates $x$.
   - This matches with our understanding that adding 0 shouldn't change $S$, whereas adding 1 should toggle $S$.
   - So for the [adder-subtractor](#adder-subtractor-4-bit), `XOR` can be used to inverse `B` bits ($\oplus 1$) for subtraction or do nothing ($\oplus 0$) for addition.
 
