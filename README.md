@@ -500,9 +500,9 @@ $$C_{out} = AB + C_{in}(A \oplus B)$$
 
 - Since XOR is addition modulo 2, the $S$ equation matches up with the perhaps more intuitive `S = (A + B + Cin) % 2`
 - Also note that $x \oplus 0 = x$ and $x \oplus 1 = \overline{x}$. You can see this from the above truth table, treating $A$ as $x$ and $B$ as $0 \text{ or } 1$, or vice versa.
-  - That is, $x \oplus 0$ does nothing to $x$, whereas $x \oplus 1$ negates $x$.
+  - That is, $\oplus 0$ does nothing, whereas $\oplus 1$ negates.
   - This matches with our understanding that adding 0 shouldn't change $S$, whereas adding 1 should toggle $S$.
-  - So for the [adder-subtractor](#adder-subtractor-4-bit), `XOR` can be used to inverse `B` bits ($\oplus 1$) for subtraction or do nothing ($\oplus 0$) for addition.
+  - So for the [adder-subtractor](#adder-subtractor-4-bit), `XOR` can be used to inverse the bits of `B` ( $b_i \oplus 1$ ) for two's complement subtraction or do nothing ( $b_i \oplus 0$ ) for addition.
 
 #### $C_{out}$ equation explanation
 
@@ -587,4 +587,4 @@ A MUX with more select bits would just be a long chain of `else if`'s (of course
 | 1   | 1   | 0   | 0   |
 | 1   | 1   | 1   | 1   |
 
-I highly recommend understanding MUX in terms of its behavior, especially the circuit schematic. You shouldn't need to use this truth table.
+I highly recommend understanding MUX in terms of its behavior, especially the trapezoidal circuit representation. You shouldn't need to use this truth table.
