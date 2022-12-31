@@ -9,6 +9,7 @@
 - [DeMUX](#demux-s--1)
 - [Encoder](#encoder-s--2)
 - [Full adder](#full-adder) ⭐
+- [Half adder]
 - [Inverter clock](#inverter-clock)
 - [MUX](#mux)
 
@@ -443,14 +444,14 @@ This and the [adder-subtractor](#adder-subtractor-4-bit), which uses full adders
 
 - $A$
 - $B$
-- $C_{in}$
+- $C_{\text{in}}$
   - Carry in
 
 ### Outputs
 
 - $S$
   - Sum
-- $C_{out}$
+- $C_{\text{out}}$
   - Carry out
 
 ### Behavior (abstract)
@@ -514,6 +515,37 @@ $$C_{out} = AB + C_{in}(A \oplus B)$$
 ### Misc
 
 - There is a full adder design that doesn't use `XOR` gates, but that implementation is pretty mid. The equations involving `XOR` are magical.
+
+## Half Adder
+
+![Half adder schematic](/img/Half-adder-schematic.png)
+
+![Half adder circuit](/img/Half-adder.png)
+
+### Inputs
+
+* $A$
+* $B$
+
+### Outputs
+
+* $S$
+* $C_{\text{out}}$
+
+### Behavior (abstract)
+
+| $A$ | $B$ | $S$ | $C_{\text{out}}$ |
+| :---: | :---: | :----------: | :----------------: |
+| 0   | 0   |      0       |         0          |
+| 0   | 1   |      1       |         0          |
+| 1   | 0   |      1       |         0          |
+| 1   | 1   |      0       |         1          |
+
+### Behavior
+
+- The only difference between this and the full adder is that there is no $C_\text{in}$.
+- The rightmost column of addition never has a carry in, so in a ripple-carry adder design (similar to [adder-subtractor](#adder-subtractor-4-bit)), the rightmost full adder *can* be replaced by a half adder.
+- However, doing so prevents the ripple-carry circuit from being used for two's complement subtraction since the $+1$ from two's complement is normally fed into $C_\text{in}$ of the full adder in the LSB position.
 
 ## Inverter clock
 
