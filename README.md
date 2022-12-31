@@ -1,6 +1,6 @@
 # COMP311 circuits
 
-Note: The images in this README are transparent with black text, so it's hard to read on dark mode. I recommend using light mode (Settings > Appearance > Light default).
+Note: The images in this README are transparent with black text, so it's hard to read on dark mode. I recommend using light mode or dark dimmed (Settings > Appearance > Light default or Dark dimmed).
 
 ## Table of contents
 
