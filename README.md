@@ -1,5 +1,7 @@
 # COMP311 circuits
 
+Note: The images in this README are transparent with black text, so it's hard to read on dark mode. I recommend using light mode (Settings > Appearance > Light default).
+
 ## Table of contents
 
 - [Adder-subtractor](#adder-subtractor-4-bit) ⭐
@@ -9,7 +11,7 @@
 - [DeMUX](#demux-s--1)
 - [Encoder](#encoder-s--2)
 - [Full adder](#full-adder) ⭐
-- [Half adder]
+- [Half adder](#half-adder)
 - [Inverter clock](#inverter-clock)
 - [MUX](#mux)
 
@@ -440,6 +442,8 @@ This and the [adder-subtractor](#adder-subtractor-4-bit), which uses full adders
 
 ![Full adder](/img/Full-Adder.png)
 
+[Full adder (only AND/OR/NOT) from slides](/img/Full-Adder-from-slides.png)
+
 ### Inputs
 
 - $A$
@@ -522,6 +526,8 @@ $$C_{out} = AB + C_{in}(A \oplus B)$$
 
 ![Half adder circuit](/img/Half-adder.png)
 
+[Half adder (only AND/OR/NOT) from slides](/img/Half-Adder-from-slides.png)
+
 ### Inputs
 
 * $A$
@@ -530,18 +536,25 @@ $$C_{out} = AB + C_{in}(A \oplus B)$$
 ### Outputs
 
 * $S$
-* $C_{\text{out}}$
+* $C_{\text{o}}$
 
-### Behavior (abstract)
+### Behavior (truth table)
 
-| $A$ | $B$ | $S$ | $C_{\text{out}}$ |
+| $A$ | $B$ | $S$ | $C_{\text{o}}$ |
 | :---: | :---: | :----------: | :----------------: |
 | 0   | 0   |      0       |         0          |
 | 0   | 1   |      1       |         0          |
 | 1   | 0   |      1       |         0          |
 | 1   | 1   |      0       |         1          |
 
-### Behavior
+### Behavior (boolean equations)
+
+$$S = A \oplus B = A \overline{B} + \overline{A}B$$
+
+$$C_o = AB$$
+
+
+### Usage
 
 - The only difference between this and the full adder is that there is no $C_\text{in}$.
 - The rightmost column of addition never has a carry in, so in a ripple-carry adder design (similar to [adder-subtractor](#adder-subtractor-4-bit)), the rightmost full adder *can* be replaced by a half adder.
