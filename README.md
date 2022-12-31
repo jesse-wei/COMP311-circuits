@@ -524,7 +524,7 @@ $$C_{out} = AB + C_{in}(A \oplus B)$$
 
 ![Half adder schematic](/img/Half-adder-schematic.png)
 
-![Half adder circuit](/img/Half-adder.png)
+![Half adder circuit](/img/Half-Adder.png)
 
 [Half adder (only AND/OR/NOT) from slides](/img/Half-Adder-from-slides.png)
 
