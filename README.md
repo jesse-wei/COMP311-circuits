@@ -27,7 +27,7 @@ Here's the download link for Digital (from the Digital repo above). This is not 
 
 [![Download](Download.svg)](https://github.com/hneemann/Digital/releases/latest/download/Digital.zip)
 
-For advice on running the program, see the [wiki](https://github.com/jesse-wei/COMP311-circuits/wiki/How-to-run-Digital). Here's [documentation](https://github.com/hneemann/Digital/releases/download/v0.29/Doc_English.pdf) from the [Digital repo](https://github.com/hneemann/Digital). You can also access it by clicking the `Help` button in Digital.
+For advice on running the program, see the [wiki](https://github.com/jesse-wei/COMP311-circuits/wiki/How-to-run-Digital-without-bugs). Here's [documentation](https://github.com/hneemann/Digital/releases/download/v0.29/Doc_English.pdf) from the [Digital repo](https://github.com/hneemann/Digital). You can also access it by clicking the `Help` button in Digital.
 
 # Definitions
 
