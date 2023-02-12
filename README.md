@@ -171,14 +171,14 @@ num is equal to 0
 
 ##### Unsigned comparison table for ALU subtraction
 
-| Condition | Symbol |      Equation       |
-| :-------: | :----: | :-----------------: |
-|   `EQ`    |  $==$  |         $Z$         |
-|   `NE`    | $\neq$ |      $\sim Z$       |
-|   `LTU`   | $\lt$  |      $\sim C$       |
-|   `LEU`   | $\leq$ |    $\sim C + Z$     |
-|   `GEU`   | $\geq$ |         $C$         |
-|   `GTU`   | $\gt$  | $\sim (\sim C + Z)$ |
+| Condition | Symbol |           Equation           |
+| :-------: | :----: | :--------------------------: |
+|   `EQ`    |  $==$  |             $Z$              |
+|   `NE`    | $\neq$ |        $\overline Z$         |
+|   `LTU`   | $\lt$  |        $\overline C$         |
+|   `LEU`   | $\leq$ |      $\overline C + Z$       |
+|   `GEU`   | $\geq$ |             $C$              |
+|   `GTU`   | $\gt$  | $\overline{\overline C + Z}$ |
 
 **_This table works for A-B, NOT A+B_**
 
