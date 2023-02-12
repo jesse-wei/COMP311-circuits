@@ -84,8 +84,8 @@ FlagZ = NOR(Sum[3], Sum[2], Sum[1], Sum[0]);
 
 - We can use a single circuit to do both addition and subtraction 🤯
 - `temp[4]` doesn't actually exist since we assume our registers are 4-bit. It represents the carry out of the most significant bit position.
-- Note that *in the circuit and corresponding pseudocode*, `FlagC`, `FlagZ`, and `Sum[3:0]` are determined in exactly the same way for both addition and subtraction.
-    - But while tracing through a SAP program, there is an unsigned comparison table we can use as a shortcut for determining flags ***after `A-B` only***, NOT `A+B`.
+- Note that _in the circuit and corresponding pseudocode_, `FlagC`, `FlagZ`, and `Sum[3:0]` are determined in exactly the same way for both addition and subtraction.
+  - But while tracing through a SAP program, there is an unsigned comparison table we can use as a shortcut for determining flags **_after `A-B` only_**, NOT `A+B`.
 
 ### Behavior (details)
 
@@ -97,7 +97,7 @@ FlagZ = NOR(Sum[3], Sum[2], Sum[1], Sum[0]);
 - With `Sub=0`, inputting `A = 5 = 0b0101` and `B = 6 = 0b0110` results in `S = 11 = 0b1011`, as you would expect.
 - ![5+6](/img/Adder-subtractor-5plus6.png)
   - Works by ripple-carry addition. See [Full adder](#full-adder) if confused.
-- What about `A = B = 8 = 0b1000`? $8+8$ *should* equal $16$, right?
+- What about `A = B = 8 = 0b1000`? $8+8$ _should_ equal $16$, right?
 - ![8+8](/img/Adder-subtractor-8plus8.png)
   - Note that the most significant bit position produced a carry out.
   - If you think of the carry out as `S[4]`, then the circuit computes the correct result `S = 16 = 0b10000`. But the Sum register is 4-bit, so the Sum register stores `S[3:0] = 0b0000 = 0` in actuality.
@@ -161,7 +161,7 @@ num is equal to 0
   - `FlagC` is 1 if the MSB produced a carry out, 0 otherwise.
   - `FlagZ` $=\overline{S_3+S_2+S_1+S_0}$
     - `NOR` all Sum bits, however many there are.
-- But there are some shortcuts that we can use to determine flags set by `A-B`. Just note that these shortcuts ***DO NOT APPLY*** to `A+B`.
+- But there are some shortcuts that we can use to determine flags set by `A-B`. Just note that these shortcuts **_DO NOT APPLY_** to `A+B`.
 
 #### Subtraction
 
@@ -171,18 +171,18 @@ num is equal to 0
 
 ##### Unsigned comparison table for ALU subtraction
 
-| Condition | Symbol | Equation            |
-| :---------: | :------: | :-------------------: |
-| `EQ`      | $==$   | $Z$                 |
-| `NE`      | $\neq$ | $\sim Z$            |
-| `LTU`     | $\lt$  | $\sim C$            |
-| `LEU`     | $\leq$ | $\sim C + Z$        |
-| `GEU`     | $\geq$ | $C$                 |
-| `GTU`     | $\gt$  | $\sim (\sim C + Z)$ |
+| Condition | Symbol |      Equation       |
+| :-------: | :----: | :-----------------: |
+|   `EQ`    |  $==$  |         $Z$         |
+|   `NE`    | $\neq$ |      $\sim Z$       |
+|   `LTU`   | $\lt$  |      $\sim C$       |
+|   `LEU`   | $\leq$ |    $\sim C + Z$     |
+|   `GEU`   | $\geq$ |         $C$         |
+|   `GTU`   | $\gt$  | $\sim (\sim C + Z)$ |
 
-***This table works for A-B, NOT A+B***
+**_This table works for A-B, NOT A+B_**
 
-- Evaluate the relationships between `A` and `B` ***before*** `A-B` occurs (since in SAP, `A` will be assigned the result of `A-B`) to determine what the flags will be.
+- Evaluate the relationships between `A` and `B` **_before_** `A-B` occurs (since in SAP, `A` will be assigned the result of `A-B`) to determine what the flags will be.
 - For example, `5-6` will result in `C=0` since $5<6$. `Z=0`, clearly.
 - `8-8` results in `Z=1` because $8==8$, and `C=1` also because $8\geq 8$.
 - `Z` is 1 if the two numbers are equal.
@@ -200,7 +200,7 @@ num is equal to 0
 - There is no comparison table for determining `FlagC` and `FlagZ` after `A+B`. As mentioned above, determining the relationship between $A$ and $B$ requires subtraction.
   - Using the comparison table to determine flags after `A+B` is wrong.
 - For addition, think about how the flags are determined in the circuit.
-- `FlagC` is 1 if there is overflow ***after*** the addition. That's all.
+- `FlagC` is 1 if there is overflow **_after_** the addition. That's all.
   - If the registers are 4-bit but the result is 5-bit, then `FlagC=1`.
 - `FlagZ` is 1 if `big NOR(Sum bits)=1`. That is, all Sum bits are 0.
   - This can occur after overflow.
@@ -209,10 +209,10 @@ num is equal to 0
 
 ### How to evaluate flags easily in a SAP program
 
-|Operation|When to check conditions|`FlagC`|`FlagZ`|
-|:---:|:---:|:---:|:---:|
-|$+$|After `A+B`|`1` if Carry bit is 1, else `0`|`1` if `big NOR(Sum bits)=1`, else `0`|
-|$-$|Before `A-B`|`1` if $A\geq B$, else `0`|`1` if $A==B$, else `0`|
+| Operation | When to check conditions |             `FlagC`             |                `FlagZ`                 |
+| :-------: | :----------------------: | :-----------------------------: | :------------------------------------: |
+|    $+$    |       After `A+B`        | `1` if Carry bit is 1, else `0` | `1` if `big NOR(Sum bits)=1`, else `0` |
+|    $-$    |       Before `A-B`       |   `1` if $A\geq B$, else `0`    |        `1` if $A==B$, else `0`         |
 
 ## D flip flop (rising edge)
 
@@ -245,12 +245,12 @@ end
 
 ### Truth table
 
-| `CLK`                                    | $D$ | $Q_p$ | $Q$ |
-| :----------------------------------------: | :---: | :-----: | :---: |
-| Rising edge                              | 0   | x     | 0   |
-| Rising edge                              | 1   | x     | 1   |
-| Falling edge, active high, or active low | x   | 0     | 0   |
-| Falling edge, active high, or active low | x   | 1     | 1   |
+|                  `CLK`                   | $D$ | $Q_p$ | $Q$ |
+| :--------------------------------------: | :-: | :---: | :-: |
+|               Rising edge                |  0  |   x   |  0  |
+|               Rising edge                |  1  |   x   |  1  |
+| Falling edge, active high, or active low |  x  |   0   |  0  |
+| Falling edge, active high, or active low |  x  |   1   |  1  |
 
 ### Misc
 
@@ -305,7 +305,7 @@ end
 
 ![Decoder schematic](/img/Decoder-schematic.png)
 
-![Decoder (S = 2)](/img/Decoder(s%3D2).png)
+![Decoder (S = 2)](</img/Decoder(s%3D2).png>)
 
 ### Input
 
@@ -344,11 +344,11 @@ def decoder(s1, s0):
 |---|---|---|---|---|---| -->
 
 | $S_1$ | $S_0$ | $A_0$ | $A_1$ | $A_2$ | $A_3$ |
-| :-----: | :-----: | :-----: | :-----: | :-----: | :-----: |
-| 0     | 0     | 1     | 0     | 0     | 0     |
-| 0     | 1     | 0     | 1     | 0     | 0     |
-| 1     | 0     | 0     | 0     | 1     | 0     |
-| 1     | 1     | 0     | 0     | 0     | 1     |
+| :---: | :---: | :---: | :---: | :---: | :---: |
+|   0   |   0   |   1   |   0   |   0   |   0   |
+|   0   |   1   |   0   |   1   |   0   |   0   |
+|   1   |   0   |   0   |   0   |   1   |   0   |
+|   1   |   1   |   0   |   0   |   0   |   1   |
 
 - This truth table is different (only in naming) from the one given in Brent's slides.
 
@@ -356,7 +356,7 @@ def decoder(s1, s0):
 
 ![DeMUX schematic](/img/DeMUX-schematic.png)
 
-![DeMUX (S = 1)](/img/DEMUX(s%3D1).png)
+![DeMUX (S = 1)](</img/DEMUX(s%3D1).png>)
 
 ### Inputs
 
@@ -389,17 +389,17 @@ else
 |---|---| -->
 
 | $S$ | $Y$ | $A$ | $B$ |
-| :---: | :---: | :---: | :---: |
-| 0   | 0   | 0   | 0   |
-| 0   | 1   | 0   | 1   |
-| 1   | 0   | 0   | 0   |
-| 1   | 1   | 1   | 0   |
+| :-: | :-: | :-: | :-: |
+|  0  |  0  |  0  |  0  |
+|  0  |  1  |  0  |  1  |
+|  1  |  0  |  0  |  0  |
+|  1  |  1  |  1  |  0  |
 
 ## Encoder (S = 2)
 
 ![Encoder schematic](/img/Encoder-schematic.png)
 
-![Encoder (S = 2)](/img/Encoder(s%3D2).png)
+![Encoder (S = 2)](</img/Encoder(s%3D2).png>)
 
 ### Input
 
@@ -417,7 +417,7 @@ else
 
 - This circuit compresses a <span style="color:green">one-hot</span> input.
 - Given a <span style="color:green">one-hot</span> input, the output is a binary number that tells you which bit was the hot one.
-    - For example, looking at the third row where $A_3A_2A_1A_0=\texttt{0b0100}$, because the $2^{\text{nd}}$ bit is hot, the output $S_0S_1=\texttt{0b10}$ is $2$.
+  - For example, looking at the third row where $A_3A_2A_1A_0=\texttt{0b0100}$, because the $2^{\text{nd}}$ bit is hot, the output $S_0S_1=\texttt{0b10}$ is $2$.
 - This is the opposite behavior of a decoder.
 
 ### Truth table
@@ -425,13 +425,13 @@ else
 <!-- |Input||||||Output|
 |---|---|---|---|---|---|---| -->
 
-| $A_3$ | $A_2$ | $A_1$ | $A_0$ | $S_0$ | $S_1$ |
-| :-----: | :-----: | :-----: | :-----: | :-----: | :-----: |
-| 0     | 0     | 0     | 1     | 0     | 0     |
-| 0     | 0     | 1     | 0     | 0     | 1     |
-| 0     | 1     | 0     | 0     | 1     | 0     |
-| 1     | 0     | 0     | 0     | 1     | 1     |
-|all|other|4-bit|inputs|x|x|
+| $A_3$ | $A_2$ | $A_1$ | $A_0$  | $S_0$ | $S_1$ |
+| :---: | :---: | :---: | :----: | :---: | :---: |
+|   0   |   0   |   0   |   1    |   0   |   0   |
+|   0   |   0   |   1   |   0    |   0   |   1   |
+|   0   |   1   |   0   |   0    |   1   |   0   |
+|   1   |   0   |   0   |   0    |   1   |   1   |
+|  all  | other | 4-bit | inputs |   x   |   x   |
 
 - All inputs that aren't <span style="color:green">one-hot</span> (for the above 4-to-2 encoder with 4-bit inputs, there are 12 possible inputs that aren't one-hot) result in $S_0S_1=\text{xx}$ because the encoder does not care about inputs that aren't one-hot. The output doesn't matter for inputs that aren't one-hot.
 - This truth table is different (only in naming) from the one given in Brent's slides.
@@ -498,11 +498,11 @@ $$C_{out} = AB + C_{in}(A \oplus B)$$
 - The XOR ( $\oplus$ ) operation can be understood as addition modulo 2.
 
 | $A$ | $B$ | $A \oplus B$ | $(A + B) \bmod{2}$ |
-| :---: | :---: | :----------: | :----------------: |
-| 0   | 0   |      0       |         0          |
-| 0   | 1   |      1       |         1          |
-| 1   | 0   |      1       |         1          |
-| 1   | 1   |      0       |         0          |
+| :-: | :-: | :----------: | :----------------: |
+|  0  |  0  |      0       |         0          |
+|  0  |  1  |      1       |         1          |
+|  1  |  0  |      1       |         1          |
+|  1  |  1  |      0       |         0          |
 
 - Since XOR is addition modulo 2, the $S$ equation matches up with the perhaps more intuitive `S = (A + B + Cin) % 2`
 - Also note that $x \oplus 0 = x$ and $x \oplus 1 = \overline{x}$. You can see this from the above truth table, treating $A$ as $x$ and $B$ as $0 \text{ or } 1$, or vice versa.
@@ -532,22 +532,22 @@ $$C_{out} = AB + C_{in}(A \oplus B)$$
 
 ### Inputs
 
-* $A$
-* $B$
+- $A$
+- $B$
 
 ### Outputs
 
-* $S$
-* $C_{\text{o}}$
+- $S$
+- $C_{\text{o}}$
 
 ### Behavior (truth table)
 
 | $A$ | $B$ | $S$ | $C_{\text{o}}$ |
-| :---: | :---: | :----------: | :----------------: |
-| 0   | 0   |      0       |         0          |
-| 0   | 1   |      1       |         0          |
-| 1   | 0   |      1       |         0          |
-| 1   | 1   |      0       |         1          |
+| :-: | :-: | :-: | :------------: |
+|  0  |  0  |  0  |       0        |
+|  0  |  1  |  1  |       0        |
+|  1  |  0  |  1  |       0        |
+|  1  |  1  |  0  |       1        |
 
 ### Behavior (boolean equations)
 
@@ -555,18 +555,17 @@ $$S = A \oplus B = A \overline{B} + \overline{A}B$$
 
 $$C_o = AB$$
 
-
 ### Usage
 
 - The only difference between this and the full adder is that there is no $C_\text{in}$.
-- The rightmost column of addition never has a carry in, so in a ripple-carry adder design (similar to [adder-subtractor](#adder-subtractor-4-bit)), the rightmost full adder *can* be replaced by a half adder.
+- The rightmost column of addition never has a carry in, so in a ripple-carry adder design (similar to [adder-subtractor](#adder-subtractor-4-bit)), the rightmost full adder _can_ be replaced by a half adder.
 - However, doing so prevents the ripple-carry circuit from being used for two's complement subtraction since the $+1$ from two's complement is normally fed into $C_\text{in}$ of the full adder in the LSB position.
 
 ## Inverter clock
 
 ![Inverter clock](/img/Inverter-clock.png)
 
-*Note*: When running this circuit, you will get an error "Logic seems to oscillate," which is the intended behavior for this circuit lol
+_Note_: When running this circuit, you will get an error "Logic seems to oscillate," which is the intended behavior for this circuit lol
 
 - The simplest implementation of a clock involves simply wiring up, in a loop, an _odd_ number of NOT gates.
   - What would happen if there's an even number of NOT gates?
@@ -596,7 +595,7 @@ Perhaps the most important and useful circuit in this document.
 
 ![MUX schematic](/img/MUX-schematic.png)
 
-![MUX](/img/MUX(s%3D1).png)
+![MUX](</img/MUX(s%3D1).png>)
 
 ### Inputs
 
@@ -610,7 +609,6 @@ Perhaps the most important and useful circuit in this document.
 
 ### Behavior
 
-
 ```c
 if (S)
   Y = B;
@@ -622,15 +620,15 @@ A MUX with more select bits would just be a long chain of `else if`'s (of course
 
 ### Truth table
 
-| S   | A   | B   | Y   |
-| :---: | :---: | :---: | :---: |
-| 0   | 0   | 0   | 0   |
-| 0   | 0   | 1   | 0   |
-| 0   | 1   | 0   | 1   |
-| 0   | 1   | 1   | 1   |
-| 1   | 0   | 0   | 0   |
-| 1   | 0   | 1   | 1   |
-| 1   | 1   | 0   | 0   |
-| 1   | 1   | 1   | 1   |
+|  S  |  A  |  B  |  Y  |
+| :-: | :-: | :-: | :-: |
+|  0  |  0  |  0  |  0  |
+|  0  |  0  |  1  |  0  |
+|  0  |  1  |  0  |  1  |
+|  0  |  1  |  1  |  1  |
+|  1  |  0  |  0  |  0  |
+|  1  |  0  |  1  |  1  |
+|  1  |  1  |  0  |  0  |
+|  1  |  1  |  1  |  1  |
 
 I highly recommend understanding MUX in terms of its behavior, especially the trapezoidal circuit representation. You shouldn't need to use this truth table.
