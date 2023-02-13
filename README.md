@@ -15,7 +15,7 @@ Note: Many images in this README are transparent with black text, so they're har
 - [Inverter clock](#inverter-clock)
 - [MUX](#mux)
 
-Designs are from slides made by Professors Brent Munsell and Montek Singh for their COMP311 and COMP211 (before it was split into 211 and 311) courses.
+Designs are from slides made by Professors Brent Munsell and Montek Singh for their COMP311 and COMP411 (before it was split into 211 and 311) courses.
 
 MUX is listed at the bottom alphabetically but is used in D flip flop and D latch, so you should read MUX first.
 
