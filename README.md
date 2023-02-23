@@ -211,8 +211,10 @@ num is equal to 0
 
 | Operation | When to check conditions |             `FlagC`             |                `FlagZ`                 |
 | :-------: | :----------------------: | :-----------------------------: | :------------------------------------: |
-|    `ADD`    |       After `A=A+B` occurs      | `1` if Carry bit is 1, else `0` | `1` if `NOR(Sum bits)=1`, else `0` |
-|    `SUB`    |       Before `A=A-B` occurs       |   `1` if $A\geq B$, else `0`    |        `1` if $A==B$, else `0`         |
+|    `ADD`    |       After `A+B`      | `1` if Carry bit is 1, else `0` | `1` if `NOR(Sum bits)=1`, else `0` |
+|    `SUB`    |       Before `A-B`      |   `1` if $A\geq B$, else `0`    |        `1` if $A==B$, else `0`         |
+
+**Note**: This table assumes the registers are unsigned. Also, carry bit is not considered a sum bit here. That is, 4-bit registers have 4 sum bits and 1 carry bit.
 
 ## D flip flop (rising edge)
 
