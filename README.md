@@ -37,7 +37,7 @@ I describe specific cases, such as a DeMUX with 1 select bit and a decoder with 
 
 I also recommend understanding the behavior of a circuit by understanding the high-level circuit schematics and high-level behavioral specifications before looking at the truth table. This makes it easier to understand the truth table.
 
-## Adder-subtractor (4-bit)
+## Adder-subtractor (4-bit unsigned registers)
 
 This and the [full adder](#full-adder) are my favorite circuit designs 🙂
 
@@ -89,8 +89,8 @@ FlagZ = NOR(Sum[3], Sum[2], Sum[1], Sum[0]);
 
 ### Behavior (details)
 
-- See [Full adder](#full-adder) if you're confused about how the full adder components work.
-- For this example, let's assume our registers are 4-bit.
+- See [Full adder](#full-adder) if you're unsure about how the full adder components work.
+- For this example, let's assume our registers are 4-bit and unsigned.
 
 #### Addition
 
@@ -141,21 +141,21 @@ num is equal to 0
     - Again, see the `XOR` explanation in [Full adder](#full-adder) if this doesn't make sense.
   - feed 0 into $C_{in}$ of the least significant bit position, doing nothing.
   - That is, when `Sub=0`, normal addition will occur, as described [above](#addition).
-- With `Sub=1`, inputting `A = 5 = 0b0101` and `B = 6 = 0b0110` results in `S = -1 = 0b1111`.
+- With `Sub=1`, inputting `A = 5 = 0b0101` and `B = 6 = 0b0110` results in `S = 15 = 0b1111`.
+  - With unsigned register logic, $5-6=15$.
 - ![5-6](/img/Adder-subtractor-5-6.png)
 - What about `A = B = 8 = 0b1000` (i.e. the numbers we're subtracting have the same value)?
 - ![8-8](/img/Adder-subtractor-8-8.png)
   - All Sum bits are 0, as we might expect, but why is `FlagC=1`?
     - What's going on under the hood is `0b1000 - 0b1000 = 0b1000 + 0b0111 + 1`.
     - But note that `0b1000 + 0b0111 = 0b1111`.
-      - If we add a number to its own inverse, then the result is always all `1`'s.
+      - If we add a number to its inverse, then the result is all `1`'s.
     - Then when `A == B`, the carry in `1` from 2's complement will always ripple through to the MSB carry out position and set all Sum bits to 0 along the way.
       - This sets `FlagC=1` and `FlagZ=1`.
-    - Unlike the addition example where `FlagC` could be seen as `S[4]` (which isn't stored in the 4-bit Sum register!), it doesn't make any sense to think of `FlagC` as `S[4]` here.
 
 ### Flags
 
-- Why do we need the flags? Well, if you're in COMP311, the SAP instructions `JC` and `JZ` are a huge part of the class and will be the bane of your existence if you don't understand these concepts.
+- Why do we need the flags? Well, if you're in COMP311, the SAP instructions `JC` and `JZ` are a huge part of the class.
 - But beyond that, programs evaluate boolean expressions by checking flags resulting from ALU subtraction, just as we're about to do here.
 - Again, note that in the adder-subtractor, `FlagC` and `FlagZ` are determined the same way for both addition and subtraction since they occur in the same circuit.
   - `FlagC` is 1 if the MSB produced a carry out, 0 otherwise.
@@ -189,11 +189,11 @@ num is equal to 0
 - The easiest way to determine `C` is by evaluating $A \geq B$. The easiest equation involving `C` goes with $\geq$.
 - Some explanations of the table:
   - It should be obvious that $==$ corresponds to $Z$.
-  - $\neq$ is the negation of $==$, so $\neq$ corresponds to $\sim Z$.
-  - I'm unsure how to rigorously prove that $\geq$ corresponds to $C$, so let's simply accept that for now. TODO: Prove this statement.
-  - Given the above, we know $\lt$ is the negation of $\geq$, so $\lt$ corresponds to $\sim C$.
-  - $\leq \iff (\lt \vee ==)$, so $\leq$ corresponds to $\sim C + Z$.
-  - Finally, $\gt$ is the negation of $\leq$, so $\gt$ corresponds to $\sim (\sim C + Z)$.
+  - $\neq$ is the negation of $==$, so $\neq$ corresponds to $\overline Z$.
+  - I'm unsure how to rigorously prove that $\geq$ corresponds to $C$, so let's accept that for now. TODO: Prove this statement.
+  - Given the above, we know $\lt$ is the negation of $\geq$, so $\lt$ corresponds to $\overline C$.
+  - $\leq \iff (\lt \vee ==)$, so $\leq$ corresponds to $\overline C + Z$.
+  - Finally, $\gt$ is the negation of $\leq$, so $\gt$ corresponds to $\overline{\overline C + Z}$.
 
 #### Addition
 
@@ -207,12 +207,12 @@ num is equal to 0
   - For example, `15+1 = 0b1111 + 0b0001 = 0b10000`. This sets `FlagZ=1`.
   - But `15+2 = 0b1111 + 0b0010 = 0b10001` sets `FlagZ=0`.
 
-### How to evaluate flags easily in a SAP program
+### How to evaluate flags in a SAP program
 
 | Operation | When to check conditions |             `FlagC`             |                `FlagZ`                 |
 | :-------: | :----------------------: | :-----------------------------: | :------------------------------------: |
-|    $+$    |       After `A+B`        | `1` if Carry bit is 1, else `0` | `1` if `big NOR(Sum bits)=1`, else `0` |
-|    $-$    |       Before `A-B`       |   `1` if $A\geq B$, else `0`    |        `1` if $A==B$, else `0`         |
+|    `ADD`    |       After `A=A+B` occurs      | `1` if Carry bit is 1, else `0` | `1` if `NOR(Sum bits)=1`, else `0` |
+|    `SUB`    |       Before `A=A-B` occurs       |   `1` if $A\geq B$, else `0`    |        `1` if $A==B$, else `0`         |
 
 ## D flip flop (rising edge)
 
