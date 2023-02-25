@@ -4,7 +4,7 @@
 
 ## Table of contents
 
-- [Adder-subtractor](#adder-subtractor-4-bit) ⭐
+- [Adder-subtractor](#adder-subtractor-4-bit-unsigned-registers) ⭐
 - [D flip flop](#d-flip-flop-rising-edge)
 - [D latch](#d-latch-positive)
 - [Decoder](#decoder-s--2)
