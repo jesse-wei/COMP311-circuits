@@ -207,14 +207,26 @@ num is equal to 0
   - For example, `15+1 = 0b1111 + 0b0001 = 0b10000`. This sets `FlagZ=1`.
   - But `15+2 = 0b1111 + 0b0010 = 0b10001` sets `FlagZ=0`.
 
-### How to evaluate flags in a SAP program
+#### How to evaluate flags in a SAP program
 
-| Operation | When to check conditions |             `FlagC`             |                `FlagZ`                 |
-| :-------: | :----------------------: | :-----------------------------: | :------------------------------------: |
-|    `ADD`    |       After `A+B`      | `1` if Carry bit is 1, else `0` | `1` if `NOR(Sum bits)=1`, else `0` |
-|    `SUB`    |       Before `A-B`      |   `1` if $A\geq B$, else `0`    |        `1` if $A==B$, else `0`         |
+<center>
 
-**Note**: This table assumes the registers are unsigned. Also, carry bit is not considered a sum bit here. That is, 4-bit registers have 4 sum bits and 1 carry bit.
+|Operation|FlagC|FlagZ|
+| :---: |:---: | :---: |
+|`ADD`|Carry-out|`NOR(Sum bits)`|
+|`SUB`|$A\geq B$|$A==B$|
+
+</center>
+
+Assumptions: This is for unsigned registers. The Carry-out bit is not considered a Sum bit for the FlagZ NOR.
+
+The `ADD` conditions mean that after addition, FlagC is 1 if the MSB carry-out is 1, else 0. FlagZ is 1 if `NOR(Sum bits)==1`, else 0.
+
+The `SUB` comparisons mean that after $A-B$, FlagC is 1 if $A\geq B$, else 0. FlagZ is 1 if $A==B$, else 0.
+
+**Note**: In SAP, `SUB` means `A = A - B`, where `B` is `Mem(arg)`. There are two values of `A`: the old value and the updated value. Which do we use in the comparisons?
+
+When checking the `SUB` conditions, use the value of `A` involved in the subtraction, not the result of subtraction. Check your understanding by testing some subtractions on the ALU.
 
 ## D flip flop (rising edge)
 
