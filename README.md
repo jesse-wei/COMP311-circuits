@@ -4,7 +4,7 @@
 
 ## Table of contents
 
-- [Adder-subtractor](#adder-subtractor-4-bit-unsigned-registers) ⭐
+- [Adder-subtractor](#adder-subtractor-4-bit-registers) ⭐
 - [D flip flop](#d-flip-flop-rising-edge)
 - [D latch](#d-latch-positive)
 - [Decoder](#decoder-s--2)
@@ -37,7 +37,7 @@ I describe specific cases, such as a DeMUX with 1 select bit and a decoder with 
 
 I also recommend understanding the behavior of a circuit by understanding the high-level circuit schematics and high-level behavioral specifications before looking at the truth table. This makes it easier to understand the truth table.
 
-## Adder-subtractor (4-bit unsigned registers)
+## Adder-subtractor (4-bit registers)
 
 This and the [full adder](#full-adder) are my favorite circuit designs 🙂
 
@@ -90,7 +90,8 @@ FlagZ = NOR(Sum[3], Sum[2], Sum[1], Sum[0]);
 ### Behavior (details)
 
 - See [Full adder](#full-adder) if you're unsure about how the full adder components work.
-- For this example, let's assume our registers are 4-bit and unsigned.
+- For this example, let's assume our registers are 4-bit, and we'll interpret them as unsigned integers.
+  - Note that I didn't say "unsigned registers." Registers are not inherently signed or unsigned; they're just bit patterns. But we will choose to interpret them as unsigned for these examples.
 
 #### Addition
 
@@ -142,7 +143,7 @@ num is equal to 0
   - feed 0 into $C_{in}$ of the least significant bit position, doing nothing.
   - That is, when `Sub=0`, normal addition will occur, as described [above](#addition).
 - With `Sub=1`, inputting `A = 5 = 0b0101` and `B = 6 = 0b0110` results in `S = 15 = 0b1111`.
-  - With unsigned register logic, $5-6=15$.
+  - If interpreting registers as unsigned, $5-6=15$.
 - ![5-6](/img/Adder-subtractor-5-6.png)
 - What about `A = B = 8 = 0b1000` (i.e. the numbers we're subtracting have the same value)?
 - ![8-8](/img/Adder-subtractor-8-8.png)
@@ -218,7 +219,7 @@ num is equal to 0
 
 </center>
 
-Assumptions: This is for unsigned registers. The Carry-out bit is not considered a Sum bit for the FlagZ NOR.
+Assumptions: Interpret the registers as unsigned integers. The Carry-out bit is not considered a Sum bit for the FlagZ NOR.
 
 The `ADD` conditions mean that after addition, FlagC is 1 if the MSB carry-out is 1, else 0. FlagZ is 1 if `NOR(Sum bits)==1`, else 0.
 
