@@ -4,13 +4,13 @@
 
 ## Table of contents
 
-- [Adder-subtractor](#adder-subtractor-4-bit-registers) ⭐
+- [Adder-subtractor](#adder-subtractor-4-bit-registers)
 - [D flip flop](#d-flip-flop-rising-edge)
 - [D latch](#d-latch-positive)
 - [Decoder](#decoder-s--2)
 - [DeMUX](#demux-s--1)
 - [Encoder](#encoder-s--2)
-- [Full adder](#full-adder) ⭐
+- [Full adder](#full-adder)
 - [Half adder](#half-adder)
 - [Inverter clock](#inverter-clock)
 - [MUX](#mux)
@@ -21,11 +21,7 @@ MUX is listed at the bottom alphabetically but is used in D flip flop and D latc
 
 ## Digital
 
-Use [Digital](https://github.com/hneemann/Digital), an awesome circuit creation & simulation program made by [hneemann](https://github.com/hneemann/), to open and run simulations on `.dig` files. All of the circuit designs are in the [circuits](https://github.com/jesse-wei/COMP311-circuits/tree/main/circuits) folder, and I highly recommend that you play around with the designs.
-
-Here's the download link for Digital (from the Digital repo above). This is not my software.
-
-[![Download](Download.svg)](https://github.com/hneemann/Digital/releases/latest/download/Digital.zip)
+Use [Digital](https://github.com/hneemann/Digital), a circuit creation & simulation program made by [hneemann](https://github.com/hneemann/), to open and run simulations on `.dig` files. All of the circuit designs are in the [circuits](https://github.com/jesse-wei/COMP311-circuits/tree/main/circuits) folder, and I highly recommend that you play around with the designs.
 
 For advice on running the program, see the [wiki](https://github.com/jesse-wei/COMP311-circuits/wiki/How-to-run-Digital-without-bugs). Here's [documentation](https://github.com/hneemann/Digital/releases/download/v0.29/Doc_English.pdf) from the [Digital repo](https://github.com/hneemann/Digital). You can also access it by clicking the `Help` button in Digital.
 
@@ -38,8 +34,6 @@ I describe specific cases, such as a DeMUX with 1 select bit and a decoder with 
 I also recommend understanding the behavior of a circuit by understanding the high-level circuit schematics and high-level behavioral specifications before looking at the truth table. This makes it easier to understand the truth table.
 
 ## Adder-subtractor (4-bit registers)
-
-This and the [full adder](#full-adder) are my favorite circuit designs 🙂
 
 This section requires understanding of the [full adder](#full-adder) component. If you don't know what a full adder does, then read through that section first.
 
@@ -452,8 +446,6 @@ else
 - This truth table is different (only in naming) from the one given in Brent's slides.
 
 ## Full adder
-
-This and the [adder-subtractor](#adder-subtractor-4-bit), which uses full adders, are my favorite circuit designs 🙂
 
 ![Full adder schematic](/img/Full-adder-schematic.png)
 
